@@ -1,6 +1,6 @@
 [submodule "code/libs/gUse"]
-	path = code/libs/gUse
+	path = Code/Libs/gUse
 	url = https://github.com/talld/gUse.git
 [submodule "code/libs/3rdParty/SDL"]
-	path = code/libs/3rdParty/SDL
+	path = Code/Libs/3rdParty/SDL
 	url = https://github.com/libsdl-org/SDL.git
