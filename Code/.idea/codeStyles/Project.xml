@@ -36,6 +36,7 @@
       <option name="BLANK_LINES_AROUND_CLASS" value="2" />
       <option name="BLANK_LINES_BEFORE_METHOD_BODY" value="2" />
       <option name="CLASS_BRACE_STYLE" value="2" />
+      <option name="ALIGN_GROUP_FIELD_DECLARATIONS" value="true" />
       <option name="SPACE_WITHIN_PARENTHESES" value="true" />
       <indentOptions>
         <option name="CONTINUATION_INDENT_SIZE" value="4" />
