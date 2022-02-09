@@ -1,3 +1,7 @@
 [submodule "Code/Libs/3rdParty/SDL"]
 	path = Code/Libs/3rdParty/SDL
 	url = https://github.com/libsdl-org/SDL.git
+[submodule "Code/Libs/gUse"]
+	path = Code/Libs/gUse
+	url = https://github.com/talld/gUse.git
+	branch = master
