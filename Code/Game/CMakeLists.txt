@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
-project(Blank)
+project(MainGame)
 
-set(CMAKE_CXX_STANDARD 20)
+add_executable(MainGame main.cpp)
 
-add_executable(Blank main.cpp)
+target_include_directories(MainGame PUBLIC ${SDL_INCLUDE_DIR} )
+
+target_link_libraries(MainGame SDL2main SDL2-static)
