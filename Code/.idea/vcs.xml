@@ -4,5 +4,8 @@
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Libs/3rdParty/SDL" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Libs/gUse" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Libs/gUse/gAlg" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Libs/gUse/gLog" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Libs/gUse/gReg" vcs="Git" />
   </component>
 </project>

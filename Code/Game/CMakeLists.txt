@@ -10,10 +10,21 @@ set(BAWL_SRC "")
 
 # set srcs ( not sure if this is dumb )
 
-list(APPEND BAWL_SRC main.cpp)
-list(APPEND BAWL_SRC Level/Level.cpp)
+set(BAWL_PCH
+        Prefix/Bawl.pch)
+
+set(BAWL_SRC
+        ${BAWL_PCH}
+        main.cpp
+        Level/Level.cpp
+        Display/Display.cpp
+        ResourceManagement/TextureMap.cpp
+)
+
 
 add_executable(Bawl ${BAWL_SRC})
+
+target_precompile_headers(Bawl PRIVATE  ${BAWL_PCH})
 
 target_include_directories(Bawl PUBLIC ${LIBS_INCLUDE_DIR})
 
