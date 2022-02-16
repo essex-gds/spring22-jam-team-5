@@ -38,7 +38,7 @@
     </Objective-C-extensions>
     <codeStyleSettings language="ObjectiveC">
       <option name="BLANK_LINES_AROUND_CLASS" value="2" />
-      <option name="BLANK_LINES_BEFORE_METHOD_BODY" value="2" />
+      <option name="BLANK_LINES_AROUND_METHOD_IN_INTERFACE" value="4" />
       <option name="BRACE_STYLE" value="2" />
       <option name="CLASS_BRACE_STYLE" value="2" />
       <option name="ELSE_ON_NEW_LINE" value="true" />

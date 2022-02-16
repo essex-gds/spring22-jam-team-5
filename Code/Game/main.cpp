@@ -1,11 +1,28 @@
 #include <SDL.h>
 #include <gLog.h>
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-#define GLOG_LOGGING_ENABLED
+#include "Level.h"
+#include "Display.h"
+#include " TextureMap.h"
 
-int main(int argc, char* args[]) {
+#include <unistd.h>
+#define GetCurrentDir getcwd
+
+int main(int argc, char* args[])
+{
+
+	GLOG_INFO("Loading...");
+
+	Level lev = {};
+	lev.init(4,4);
+
+	Display d;
+
+	d.init();
+	d.createWindow(800,600,"Bawl");
+	d.showWindow();
+
+	TextureMap::init(&d);
 
 	return 0;
 }
