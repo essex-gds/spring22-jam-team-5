@@ -18,6 +18,7 @@ set(BAWL_SRC
         Display/Display.cpp
         ResourceManagement/TextureMap.cpp
         ResourceManagement/FileReader.cpp
+        State/StateStack.cpp
         )
 
 include_directories(
@@ -26,6 +27,8 @@ include_directories(
         Prefix
         ResourceManagement
         Sys
+        State
+        State/States
 )
 
 add_executable(Bawl ${BAWL_SRC})

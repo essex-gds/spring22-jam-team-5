@@ -4,6 +4,7 @@
 #include "Display.h"
 #include "Camera.h"
 #include "Level.h"
+#include "IState.h"
 
 /***
  * StateBall is just a loose group of things to pass around
@@ -18,23 +19,28 @@ struct StateBall
 	Camera*  mCamera;
 };
 
-class IState
-{
-public:
-	IState();
-	virtual ~IState();
-	virtual enter(StateBall* stateBallPtr, IState* from) = 0;
-	virtual exit(IState* to ) = 0;
-	virtual tick(StateStack* stack, float dt) = 0;
-private:
-	StateBall* mStateBall;
-};
-
 class StateStack
 {
 public:
-protected:
+	StateStack();
+
+	~StateStack();
+
+	void push(IState* newState);
+
+	IState* pop();
+
+	void update(float dt);
+
 private:
+
+	const size_t INITIAL_STATES_STACK_SIZE = 4;
+
+	size_t  mStatesArraySize;
+
+	IState** mStatesPtrArray;
+
+	size_t  mStatesReadHead;
 };
 
 #endif // BAWL_STATEENTRY_H
