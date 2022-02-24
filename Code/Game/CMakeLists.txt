@@ -19,7 +19,7 @@ set(BAWL_SRC
         ResourceManagement/TextureMap.cpp
         ResourceManagement/FileReader.cpp
         State/StateStack.cpp
-        )
+        State/States/EntryState.cpp State/States/EntryState.h)
 
 include_directories(
         Display

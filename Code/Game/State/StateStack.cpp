@@ -22,5 +22,16 @@ IState* StateStack::pop()
 
 void StateStack::update(float dt)
 {
-	mStatesPtrArray[mStatesReadHead]->tick(this, dt);
+    size_t  readHead = mStatesReadHead;
+    IState* current = nullptr;
+
+    do
+    {
+        current = mStatesPtrArray[readHead];
+        current->tick(this, dt);
+
+        readHead--;
+    }
+    while ( current->isTransparent() && readHead > 0 );
+#
 }

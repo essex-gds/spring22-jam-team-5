@@ -6,6 +6,8 @@
 #include "Level.h"
 #include "IState.h"
 
+class IState;
+
 /***
  * StateBall is just a loose group of things to pass around
  * useful things like a display or level or camera should be bundled with it
@@ -17,6 +19,7 @@ struct StateBall
 	Display* mDisplay;
 	Level*   mLevel;
 	Camera*  mCamera;
+
 };
 
 class StateStack

@@ -3,6 +3,8 @@
 
 #include <StateStack.h>
 
+class StateStack;
+struct StateBall;
 
 class IState
 {
@@ -12,7 +14,10 @@ public:
 	virtual void enter(StateBall* stateBallPtr, IState* from) = 0;
 	virtual void exit(IState* to ) = 0;
 	virtual void tick(StateStack* stack, float dt) = 0;
+
+    inline virtual bool isTransparent() { return mIsTransparent; }
 private:
+    bool       mIsTransparent;
 	StateBall* mStateBall;
 };
 

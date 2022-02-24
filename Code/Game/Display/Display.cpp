@@ -84,32 +84,35 @@ void Display::drawDisplay()
 
 void Display::drawTileMap()
 {
-	uint64_t lineWidth    = mCameraPtr->mX + mCameraPtr->mWidth;
-	uint64_t columnHeight = mCameraPtr->mY + mCameraPtr->mHeight;
-
-	for(uint64_t i = mCameraPtr->mY; i < columnHeight; i++ )
+	if(mCameraPtr)
 	{
-		for(uint64_t j = mCameraPtr->mX; j < lineWidth; j++ )
+		uint64_t lineWidth    = mCameraPtr->mX + mCameraPtr->mWidth;
+		uint64_t columnHeight = mCameraPtr->mY + mCameraPtr->mHeight;
+
+		for (uint64_t i = mCameraPtr->mY; i < columnHeight; i++)
 		{
+			for (uint64_t j = mCameraPtr->mX; j < lineWidth; j++)
+			{
 
-			size_t pos  = i * mLevelPtr->mWidth + j;
-			hash_t hash = mLevelPtr->mTileMap[pos];
-			TextureEntry entry = TextureMap::getEntry(mTileTextures[hash]);
+				size_t pos  = i * mLevelPtr->mWidth + j;
+				hash_t hash = mLevelPtr->mTileMap[pos];
+				TextureEntry entry = TextureMap::getEntry(mTileTextures[hash]);
 
-			uint64_t pixelsPerTileWidth  = mWindowWidth  / mCameraPtr->mWidth;
-			uint64_t pixelsPerTileHeight = mWindowHeight / mCameraPtr->mHeight;
+				uint64_t pixelsPerTileWidth  = mWindowWidth  /  mCameraPtr->mWidth;
+				uint64_t pixelsPerTileHeight = mWindowHeight /  mCameraPtr->mHeight;
 
-			SDL_Rect dst;
-			dst.x = (int32_t)( ( j - mCameraPtr->mX ) * pixelsPerTileWidth  );
-			dst.y = (int32_t)( ( i - mCameraPtr->mY ) * pixelsPerTileHeight );
-			dst.w = pixelsPerTileWidth;
-			dst.h = pixelsPerTileHeight;
+				SDL_Rect dst;
+				dst.x = (int32_t) ((j - mCameraPtr->mX) * pixelsPerTileWidth);
+				dst.y = (int32_t) ((i - mCameraPtr->mY) * pixelsPerTileHeight);
+				dst.w = pixelsPerTileWidth;
+				dst.h = pixelsPerTileHeight;
 
-			SDL_Rect src = {0, 0, entry.mSurface->w, entry.mSurface->h};
+				SDL_Rect src = {0, 0, entry.mSurface->w, entry.mSurface->h};
 
-			SDL_Texture* tex = entry.mTexture;
+				SDL_Texture *tex = entry.mTexture;
 
-			SDL_RenderCopy(mRenderer, tex, &src, &dst);
+				SDL_RenderCopy(mRenderer, tex, &src, &dst);
+			}
 		}
 	}
 }
@@ -152,6 +155,16 @@ void Display::drawShaders()
 SDL_Renderer* Display::getRenderer()
 {
 	return mRenderer;
+}
+
+void Display::setLevel(Level *levelPtr)
+{
+	this->mLevelPtr = levelPtr;
+}
+
+void Display::setCamera(Camera *cameraPtr)
+{
+	this->mCameraPtr = cameraPtr;
 }
 
 

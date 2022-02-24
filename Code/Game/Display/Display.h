@@ -50,6 +50,10 @@ public:
 
 	SDL_Renderer* getRenderer();
 
+	void setLevel(Level*  levelPtr);
+
+	void setCamera(Camera* cameraPtr);
+
 protected:
 
 	SDL_Renderer* mRenderer;
