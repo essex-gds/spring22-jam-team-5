@@ -21,7 +21,10 @@ Level::~Level()
 
 int Level::init(uint64_t width, uint64_t height)
 {
-	mSize = width * height;
+	mWidth  = width;
+	mHeight = height;
+
+	mSize = mWidth * mHeight;
 
 	size_t mapSize = mSize // mTileMap
 	               + mSize // mAnimatedTileMap
@@ -29,7 +32,7 @@ int Level::init(uint64_t width, uint64_t height)
 	               + mSize // mCharMap
 	               ;       // mActorMap
 
-	mMapData = static_cast<tile_t*>( malloc( mapSize * sizeof(tile_t) ) );
+	mMapData = static_cast<tile_t*>( calloc( mapSize, sizeof(tile_t) ) );
 
 	mTileMap         = mMapData + ( mSize * 0 );
 	mAnimatedTileMap = mMapData + ( mSize * 1 );

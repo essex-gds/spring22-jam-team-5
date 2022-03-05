@@ -72,6 +72,7 @@ TextureEntry TextureMap::getEntry(hash_t hash)
 	else
 	{       //load the missing texture
 		ret = mEntryMap.find(0L)->second;
+		GLOG_INFO("Texture %lu not found using default texture", hash);
 	}
 
 	return ret;
@@ -104,5 +105,10 @@ hash_t TextureMap::nHash(size_t strSize, const char* pStr)
 SDL_Texture* TextureMap::makeTexture(SDL_Surface* surface)
 {
 	SDL_Texture* tex = SDL_CreateTextureFromSurface(sActiveDisplay->getRenderer(), surface);
+	if(tex == nullptr)
+	{
+		GLOG_INFO("TextureMap: Error creating texture: %s",SDL_GetError());
+		GLOG_INFO("Did you forget to create the window before loading textures?");
+	}
 	return tex;
 }

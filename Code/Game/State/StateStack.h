@@ -16,9 +16,9 @@ class IState;
  */
 struct StateBall
 {
-	Display* mDisplay;
+	Display* mDisplayPtr;
 	Level*   mLevel;
-	Camera*  mCamera;
+	Camera*  mCameraPtr;
 
 };
 
@@ -31,19 +31,21 @@ public:
 
 	void push(IState* newState);
 
-	IState* pop();
+	void pop();
 
 	void update(float dt);
 
 private:
 
-	const size_t INITIAL_STATES_STACK_SIZE = 4;
+	static inline const size_t INITIAL_STATES_STACK_SIZE = 4;
 
 	size_t  mStatesArraySize;
 
 	IState** mStatesPtrArray;
 
-	size_t  mStatesReadHead;
+	size_t  mStatesWriteHead;
+
+	StateBall mStateBall;
 };
 
 #endif // BAWL_STATEENTRY_H

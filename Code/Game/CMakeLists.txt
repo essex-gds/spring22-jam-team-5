@@ -18,8 +18,11 @@ set(BAWL_SRC
         Display/Display.cpp
         ResourceManagement/TextureMap.cpp
         ResourceManagement/FileReader.cpp
+        State/GameHandler.cpp
         State/StateStack.cpp
-        State/States/EntryState.cpp State/States/EntryState.h)
+        State/States/EntryState.cpp
+        State/States/TestState.cpp
+        )
 
 include_directories(
         Display

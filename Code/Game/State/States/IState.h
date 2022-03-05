@@ -12,13 +12,13 @@ public:
 	IState()          = default;
 	virtual ~IState() = default;
 	virtual void enter(StateBall* stateBallPtr, IState* from) = 0;
-	virtual void exit(IState* to ) = 0;
-	virtual void tick(StateStack* stack, float dt) = 0;
+	virtual void exit(StateStack* stack, IState* to )         = 0;
+	virtual void tick(StateStack* stack, float dt)            = 0;
 
-    inline virtual bool isTransparent() { return mIsTransparent; }
+	inline virtual bool isTransparent() { return mIsTransparent; }
 private:
-    bool       mIsTransparent;
-	StateBall* mStateBall;
+	static inline bool mIsTransparent;
+	StateBall*         mStateBall;
 };
 
 #endif // BAWL_ISTATE_H
