@@ -1,5 +1,11 @@
 #include "StateStack.h"
 
+void StateBall::repack()
+{
+	mDisplayPtr->setCamera(mCameraPtr);
+	mDisplayPtr->setLevel(mLevel);
+}
+
 StateStack::StateStack()
 {
 	mStatesPtrArray  = (IState**) calloc( INITIAL_STATES_STACK_SIZE, sizeof(IState*) );

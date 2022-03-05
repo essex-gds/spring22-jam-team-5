@@ -20,6 +20,7 @@ struct StateBall
 	Level*   mLevel;
 	Camera*  mCameraPtr;
 
+	void repack();
 };
 
 class StateStack
