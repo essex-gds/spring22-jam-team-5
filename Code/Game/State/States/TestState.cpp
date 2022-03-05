@@ -4,11 +4,21 @@ void TestState::enter(StateBall* stateBallPtr, IState* from)
 {
 	GLOG_INFO("TestState pushed");
 	stateBallPtr->mDisplayPtr->showWindow();
+
+	mLevel  = {};
+	mCamera = {};
+
+	mLevel.init(640,480);
+	mCamera.init(16,16);
+
+	stateBallPtr->mLevel     = &mLevel;
+	stateBallPtr->mCameraPtr = &mCamera;
+
 }
 
 void TestState::exit(StateStack* stack, IState* to)
 {
-
+	GLOG_INFO("TestState popped");
 }
 
 void TestState::tick(StateStack* stack, float dt)

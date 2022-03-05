@@ -22,6 +22,7 @@ set(BAWL_SRC
         State/StateStack.cpp
         State/States/EntryState.cpp
         State/States/TestState.cpp
+        Display/Camera.cpp
         )
 
 include_directories(

@@ -19,6 +19,7 @@ void EntryState::enter(StateBall* stateBallPtr, IState* from)
 
 void EntryState::exit(StateStack* stack, IState* to)
 {
+	GLOG_INFO("EntryState popped");
 	stack->push(new TestState());
 }
 
