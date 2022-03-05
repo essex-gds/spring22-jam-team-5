@@ -13,5 +13,9 @@ SDL_Surface* readTexture(const char* fName)
 	strcat(fNameBuff, textureRoot() );
 	strcat(fNameBuff, fName  );
 
-	return SDL_LoadBMP(fNameBuff);
+	SDL_Surface* surface = SDL_LoadBMP(fNameBuff);
+
+	SDL_SetColorKey( surface, SDL_TRUE, SDL_MapRGB( surface->format, 0x00, 0x00, 0x00 ) );
+
+	return surface;
 }

@@ -67,4 +67,4 @@ protected:
 };
 
 
-#endif //PROJECTROOT_DISPLAY_H
+#endif // BAWL_DISPLAY_H

@@ -35,7 +35,7 @@ hash_t TextureMap::requestTexture(const char* texHandle)
 			// entry texture will be made a draw time if it doesn't exist
 			// keeps things simpler as that will be done in the display part of the code
 			// but might come at a bit of a runtime cost
-			newEntry.mSurface        = readTexture(texHandle);
+			newEntry.mSurface        = sur;
 			newEntry.mTexture        = makeTexture(sur);
 			newEntry.mReferenceCount = 1;
 
