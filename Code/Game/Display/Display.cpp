@@ -88,11 +88,46 @@ void Display::drawTileMap()
 {
 	if(mCameraPtr)
 	{
+		// pre-camera processing
+		uint64_t pixelsPerTileWidth = mWindowWidth / mCameraPtr->mWidth;
+		uint64_t pixelsPerTileHeight = mWindowHeight / mCameraPtr->mHeight;
+
+		// X
+		if( mCameraPtr->mSubX > (float) pixelsPerTileWidth )
+		{
+			printf("W-RIGHT\n");
+			mCameraPtr->mSubX -= (float) pixelsPerTileWidth;
+			mCameraPtr->mX++;
+		}
+
+		if( mCameraPtr->mSubX <  0 && mCameraPtr->mSubX < (1 - (float) pixelsPerTileWidth) )
+		{
+			printf("W-LEFT\n");
+			mCameraPtr->mSubX += (float) pixelsPerTileWidth;
+			mCameraPtr->mX--;
+		}
+
+		// Y
+		if( mCameraPtr->mSubY > (float) pixelsPerTileHeight )
+		{
+			printf("W-DOWN\n");
+			mCameraPtr->mSubY -= (float) pixelsPerTileWidth;
+			mCameraPtr->mY++;
+		}
+
+		if( mCameraPtr->mSubY < 0 && mCameraPtr->mSubY < ( 1 - (float) pixelsPerTileHeight) )
+		{
+			printf("W-UP\n");
+			mCameraPtr->mSubY += (float) pixelsPerTileWidth;
+			mCameraPtr->mY--;
+		}
+
+		// draw the map
 		for (uint64_t y = 0; y < mCameraPtr->mHeight; y++)
 		{
 			for (uint64_t x = 0; x < mCameraPtr->mWidth; x++)
 			{
-				size_t pos = y * mLevelPtr->mWidth + mCameraPtr->mX + x;
+				size_t pos = ( ( mCameraPtr->mY + y ) * mLevelPtr->mWidth ) + ( mCameraPtr->mX + x );
 
 				// if pos isn't valid dont draw
 				if( mLevelPtr->mSize > pos && pos >= 0 )
@@ -100,21 +135,18 @@ void Display::drawTileMap()
 					hash_t hash = mLevelPtr->mTileMap[pos];
 					TextureEntry entry = TextureMap::getEntry(mTileTextures[hash]);
 
-					uint64_t pixelsPerTileWidth = mWindowWidth / mCameraPtr->mWidth;
-					uint64_t pixelsPerTileHeight = mWindowHeight / mCameraPtr->mHeight;
-
 					SDL_Rect dst;
 					dst.x = (int32_t) ( x * pixelsPerTileWidth  );
 					dst.y = (int32_t) ( y * pixelsPerTileHeight );
 					dst.w = (int32_t) pixelsPerTileWidth;
 					dst.h = (int32_t) pixelsPerTileHeight;
 
+					dst.x -= (int32_t) mCameraPtr->mSubX;
+					dst.y -= (int32_t)mCameraPtr->mSubY;
+
 					SDL_Rect src = {0, 0, entry.mSurface->w, entry.mSurface->h};
 
 					SDL_Texture *tex = entry.mTexture;
-
-					GLOG_INFO("x: %d, y: %d ", dst.x, dst.y);
-
 					SDL_RenderCopy(mRenderer, tex, &src, &dst);
 				}
 			}

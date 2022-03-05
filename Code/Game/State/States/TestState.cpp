@@ -8,12 +8,20 @@ void TestState::enter(StateBall* stateBallPtr, IState* from)
 	mLevel  = {};
 	mCamera = {};
 
-	mLevel.init(640,480);
+	mLevel.init(32,32);
 	mCamera.init(16,16);
 
 	stateBallPtr->mLevel     = &mLevel;
 	stateBallPtr->mCameraPtr = &mCamera;
 
+	hash_t hast =TextureMap::requestTexture("TEST_TEXTURE.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(1, hast);
+
+	mLevel.mTileMap[15] = 1;
+	mLevel.mTileMap[30] = 1;
+	mLevel.mTileMap[60] = 1;
+
+	stateBallPtr->repack();
 }
 
 void TestState::exit(StateStack* stack, IState* to)
@@ -23,23 +31,26 @@ void TestState::exit(StateStack* stack, IState* to)
 
 void TestState::tick(StateStack* stack, float dt)
 {
+	printf("%f \n", mCamera.mSubX);
+	printf("%f \n", mCamera.mSubY);
+
 	if( GameHandler::getControlState()->keyboardState[SDL_SCANCODE_W] )
 	{
-		printf("W-DOWN\n");
+		mCamera.mSubY += 20 * dt;
 	}
 
 	if( GameHandler::getControlState()->keyboardState[SDL_SCANCODE_A] )
 	{
-		printf("A-DOWN\n");
+		mCamera.mSubX -= 20 * dt;
 	}
 
-	if( GameHandler::getControlState()->keyboardState[SDL_SCANCODE_S] )
+	if( GameHandler::getControlState()->keyboardState[SDL_SCANCODE_S])
 	{
-		printf("S-DOWN\n");
+		mCamera.mSubY -= 20 * dt;
 	}
 
 	if( GameHandler::getControlState()->keyboardState[SDL_SCANCODE_D] )
 	{
-		printf("D-DOWN\n");
+		mCamera.mSubX += 20 * dt;
 	}
 }

@@ -36,7 +36,7 @@ void GameHandler::updateLoop()
 	{
 		float dt = (float)( SDL_GetTicks64() - prevTime ) / 1000.0f;
 		prevTime = SDL_GetTicks64();
-		mStateStack.update(0);
+		mStateStack.update(dt);
 		render();
 		updateSDL();
 	}
@@ -49,7 +49,7 @@ void GameHandler::leave()
 
 void GameHandler::render()
 {
-
+	mDisplay.drawDisplay();
 }
 
 void GameHandler::updateSDL()
