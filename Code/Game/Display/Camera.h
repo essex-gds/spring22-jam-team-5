@@ -16,6 +16,8 @@ struct Camera
 	// count of tiles on one camera screen
 	uint64_t mWidth;
 	uint64_t mHeight;
+
+	bool mScrollEnabled;
 };
 
 

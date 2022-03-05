@@ -9,4 +9,6 @@ void Camera::init(uint64_t width, uint64_t height)
 	mY    = 0;
 	mSubX = 0;
 	mSubY = 0;
+
+	mScrollEnabled = false;
 }

@@ -72,77 +72,92 @@ void Display::clearDisplay()
 void Display::drawDisplay()
 {
 	clearDisplay();
-	drawTileMap();
-	drawAnimatedTileMap();
-	drawActorMap();
-	drawCharMap();
+
+	drawTileMap(mLevelPtr->mTileMap);
+	drawTileMap(mLevelPtr->mOverTileMap);
+	drawTileMap(mLevelPtr->mActorMap);
+	drawTileMap(mLevelPtr->mCharMap);
+
 	drawOverSprite();
-	drawFX();
 	drawFX();
 	drawColorMask();
 	drawShaders();
 	SDL_RenderPresent(mRenderer);
 }
 
-void Display::drawTileMap()
+void Display::drawTileMap(tile_t* map)
 {
+	// JANK AF
+	// my recommendations, until i get around to reworking this to be less shit:
+	// 1. do not let the camera ever make it to the edge of the screen
+	// 2. do NOT let the camera ever make it to the edge of the screen
+
 	if(mCameraPtr)
 	{
 		// pre-camera processing
 		uint64_t pixelsPerTileWidth = mWindowWidth / mCameraPtr->mWidth;
 		uint64_t pixelsPerTileHeight = mWindowHeight / mCameraPtr->mHeight;
 
-		// X
-		if( mCameraPtr->mSubX > (float) pixelsPerTileWidth )
+		// scrolling
+		if(mCameraPtr->mScrollEnabled)
 		{
-			printf("W-RIGHT\n");
-			mCameraPtr->mSubX -= (float) pixelsPerTileWidth;
-			mCameraPtr->mX++;
-		}
 
-		if( mCameraPtr->mSubX <  0 && mCameraPtr->mSubX < (1 - (float) pixelsPerTileWidth) )
-		{
-			printf("W-LEFT\n");
-			mCameraPtr->mSubX += (float) pixelsPerTileWidth;
-			mCameraPtr->mX--;
-		}
+			// X
+			if (mCameraPtr->mSubX > (float) pixelsPerTileWidth)
+			{
+				printf("W-RIGHT\n");
+				mCameraPtr->mSubX -= (float) pixelsPerTileWidth;
+				mCameraPtr->mX++;
+			}
 
-		// Y
-		if( mCameraPtr->mSubY > (float) pixelsPerTileHeight )
-		{
-			printf("W-DOWN\n");
-			mCameraPtr->mSubY -= (float) pixelsPerTileWidth;
-			mCameraPtr->mY++;
-		}
+			if (mCameraPtr->mSubX < 0 && mCameraPtr->mSubX < ( 1 - (float) pixelsPerTileWidth ))
+			{
+				printf("W-LEFT\n");
+				mCameraPtr->mSubX += (float) pixelsPerTileWidth;
+				mCameraPtr->mX--;
+			}
 
-		if( mCameraPtr->mSubY < 0 && mCameraPtr->mSubY < ( 1 - (float) pixelsPerTileHeight) )
-		{
-			printf("W-UP\n");
-			mCameraPtr->mSubY += (float) pixelsPerTileWidth;
-			mCameraPtr->mY--;
+			// Y
+			if (mCameraPtr->mSubY > (float) pixelsPerTileHeight)
+			{
+				printf("W-DOWN\n");
+				mCameraPtr->mSubY -= (float) pixelsPerTileWidth;
+				mCameraPtr->mY++;
+			}
+
+			if (mCameraPtr->mSubY < 0 && mCameraPtr->mSubY < ( 1 - (float) pixelsPerTileHeight ))
+			{
+				printf("W-UP\n");
+				mCameraPtr->mSubY += (float) pixelsPerTileWidth;
+				mCameraPtr->mY--;
+			}
 		}
 
 		// draw the map
-		for (uint64_t y = 0; y < mCameraPtr->mHeight; y++)
+		for (int64_t y = 0; y < mCameraPtr->mHeight+2; y++)
 		{
-			for (uint64_t x = 0; x < mCameraPtr->mWidth; x++)
+			for (int64_t x = 0; x < mCameraPtr->mWidth+2; x++)
 			{
+
 				size_t pos = ( ( mCameraPtr->mY + y ) * mLevelPtr->mWidth ) + ( mCameraPtr->mX + x );
 
 				// if pos isn't valid dont draw
 				if( mLevelPtr->mSize > pos && pos >= 0 )
 				{
-					hash_t hash = mLevelPtr->mTileMap[pos];
+					hash_t hash = map[pos];
 					TextureEntry entry = TextureMap::getEntry(mTileTextures[hash]);
 
 					SDL_Rect dst;
-					dst.x = (int32_t) ( x * pixelsPerTileWidth  );
-					dst.y = (int32_t) ( y * pixelsPerTileHeight );
+					dst.x = (int32_t) ( x  * pixelsPerTileWidth );
+					dst.y = (int32_t) ( y  * pixelsPerTileHeight );
 					dst.w = (int32_t) pixelsPerTileWidth;
 					dst.h = (int32_t) pixelsPerTileHeight;
 
-					dst.x -= (int32_t) mCameraPtr->mSubX;
-					dst.y -= (int32_t)mCameraPtr->mSubY;
+					if(mCameraPtr -> mScrollEnabled)
+					{
+						dst.x -= (int32_t) mCameraPtr->mSubX;
+						dst.y -= (int32_t) mCameraPtr->mSubY;
+					}
 
 					SDL_Rect src = {0, 0, entry.mSurface->w, entry.mSurface->h};
 
@@ -152,21 +167,6 @@ void Display::drawTileMap()
 			}
 		}
 	}
-}
-
-void Display::drawAnimatedTileMap()
-{
-
-}
-
-void Display::drawCharMap()
-{
-
-}
-
-void Display::drawActorMap()
-{
-
 }
 
 void Display::drawOverSprite()

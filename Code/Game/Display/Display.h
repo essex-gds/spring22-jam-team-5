@@ -32,13 +32,7 @@ public:
 
 	void drawDisplay();
 
-	void drawTileMap();
-
-	void drawAnimatedTileMap();
-
-	void drawCharMap();
-
-	void drawActorMap();
+	void drawTileMap(tile_t* map);
 
 	void drawOverSprite();
 
