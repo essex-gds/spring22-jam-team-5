@@ -12,6 +12,8 @@
 #include "Types.h"
 #include "FileReader.h"
 
+class Display;
+
 struct TextureEntry
 {
 	SDL_Surface* mSurface;

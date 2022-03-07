@@ -1,5 +1,7 @@
 #include "TestState.h"
 
+static Sprite* s;
+
 void TestState::enter(StateBall* stateBallPtr, IState* from)
 {
 	GLOG_INFO("TestState pushed");
@@ -15,15 +17,30 @@ void TestState::enter(StateBall* stateBallPtr, IState* from)
 
 	stateBallPtr->mLevel     = l;
 	stateBallPtr->mCameraPtr = &mCamera;
-
-	hash_t hast =TextureMap::requestTexture("TEST_TEXTURE.bmp");
-	stateBallPtr->mDisplayPtr->setTexture(1, hast);
-
-	l->mTileMap[15] = 1;
-	l->mTileMap[30] = 1;
-	l->mTileMap[60] = 1;
-
 	stateBallPtr->repack();
+
+
+	hash_t hash =TextureMap::requestTexture("BLANK_TEXTURE.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(0, hash);
+
+	hash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(1, hash);
+
+	hash =TextureMap::requestTexture("CIRC_TEXTURE.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(3, hash);
+
+	s = (Sprite*) malloc(sizeof(Sprite));
+
+	s->mTileIndex = 3;
+	s->mWidth =  96;
+	s->mHeight = 96;
+	s->mX = 0;
+	s->mY = 0;
+
+	stateBallPtr->mDisplayPtr->addSprite(s);
+
+	memset(l->mTileMap,-1,l->mWidth * l->mHeight);
+
 }
 
 void TestState::exit(StateStack* stack, IState* to)
@@ -33,23 +50,5 @@ void TestState::exit(StateStack* stack, IState* to)
 
 void TestState::tick(StateStack* stack, float dt)
 {
-	if( GameHandler::getControlState()->keyboardState[SDL_SCANCODE_W] )
-	{
-		mCamera.mSubY += 50 * dt;
-	}
-
-	if( GameHandler::getControlState()->keyboardState[SDL_SCANCODE_A] )
-	{
-		mCamera.mSubX -= 50 * dt;
-	}
-
-	if( GameHandler::getControlState()->keyboardState[SDL_SCANCODE_S])
-	{
-		mCamera.mSubY -= 50 * dt;
-	}
-
-	if( GameHandler::getControlState()->keyboardState[SDL_SCANCODE_D] )
-	{
-		mCamera.mSubX += 50 * dt;
-	}
+	s->mX += 10 * dt;
 }

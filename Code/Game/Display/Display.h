@@ -5,10 +5,21 @@
 #include <gLog.h>
 
 #include <stdexcept>
+#include <vector>
 
+#include "TextureMap.h"
 #include "Types.h"
 #include "Level.h"
 #include "Camera.h"
+
+struct Sprite
+{
+	uint8_t mTileIndex;
+	double mX;
+	double mY;
+	double mWidth;
+	double mHeight;
+};
 
 class Display
 {
@@ -25,8 +36,6 @@ public:
 	void showWindow();
 
 	void hideWindow();
-
-	void setTexture(uint8_t index, hash_t tex);
 
 	void clearDisplay();
 
@@ -48,6 +57,10 @@ public:
 
 	void setCamera(Camera* cameraPtr);
 
+	void setTexture(uint8_t index, hash_t tex);
+
+	void addSprite( Sprite* s );
+
 protected:
 
 	SDL_Renderer* mRenderer;
@@ -63,6 +76,8 @@ protected:
 
 	uint32_t mRendererFlags;
 	uint32_t mWindowFlags;
+
+	std::vector<Sprite*> mSprites;
 
 };
 

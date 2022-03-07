@@ -1,4 +1,3 @@
-#include <TextureMap.h>
 #include "Display.h"
 
 Display::Display()
@@ -11,6 +10,8 @@ Display::Display()
 
 	mRendererFlags |= SDL_RENDERER_ACCELERATED;
 	mWindowFlags   |= SDL_WINDOW_HIDDEN;
+
+	mSprites = {};
 
 	memset(mTileTextures, 0, 256 * sizeof(hash_t) );
 
@@ -57,11 +58,6 @@ void Display::hideWindow()
 	SDL_HideWindow(mWindow);
 	mWindowFlags |= SDL_WINDOW_HIDDEN;
 	mWindowFlags &= ~SDL_WINDOW_SHOWN;
-}
-
-void Display::setTexture(uint8_t index, hash_t tex)
-{
-	mTileTextures[index] = tex;
 }
 
 void Display::clearDisplay()
@@ -171,7 +167,24 @@ void Display::drawTileMap(tile_t* map)
 
 void Display::drawOverSprite()
 {
+	for(auto & sprite : mSprites)
+	{
+		TextureEntry tex = TextureMap::getEntry(mTileTextures[sprite->mTileIndex]);
 
+		SDL_Rect src;
+		src.x = 0;
+		src.y = 0;
+		src.w = tex.mSurface->w;
+		src.h = tex.mSurface->h;
+
+		SDL_Rect dst;
+		dst.x = (int32_t) sprite->mX;
+		dst.y = (int32_t) sprite->mY;
+		dst.w = (int32_t) sprite->mWidth;
+		dst.h = (int32_t) sprite->mHeight;
+
+		SDL_RenderCopy(mRenderer, tex.mTexture, &src, &dst);
+	}
 }
 
 void Display::drawFX()
@@ -204,4 +217,12 @@ void Display::setCamera(Camera *cameraPtr)
 	this->mCameraPtr = cameraPtr;
 }
 
+void Display::setTexture(uint8_t index, hash_t tex)
+{
+	mTileTextures[index] = tex;
+}
 
+void Display::addSprite(Sprite* s)
+{
+	mSprites.push_back(s);
+}
