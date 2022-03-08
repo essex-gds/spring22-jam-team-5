@@ -11,9 +11,9 @@ class IState
 public:
 	IState()          = default;
 	virtual ~IState() = default;
-	virtual void enter(StateBall* stateBallPtr, IState* from) = 0;
-	virtual void exit(StateStack* stack, IState* to )         = 0;
-	virtual void tick(StateStack* stack, float dt)            = 0;
+	virtual void enter(StateStack* stack, StateBall* stateBallPtr, IState* from)       = 0;
+	virtual void exit(StateStack* stack, StateBall* stateBallPtr, IState* to )         = 0;
+	virtual void tick(StateStack* stack, StateBall* stateBallPtr, float dt)            = 0;
 
 	inline virtual bool isTransparent() { return mIsTransparent; }
 private:

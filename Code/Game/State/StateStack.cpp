@@ -30,8 +30,9 @@ void StateStack::push(IState* newState)
 	}
 
 	mStatesPtrArray[mStatesWriteHead] = newState;
-	mStatesPtrArray[mStatesWriteHead]->enter(&mStateBall, topState);
-	mStatesWriteHead+=1;
+	mStatesWriteHead++;
+
+	newState->enter(this, &mStateBall, topState);
 }
 
 void StateStack::pop()
@@ -46,7 +47,7 @@ void StateStack::pop()
 			nextTopState = mStatesPtrArray[mStatesWriteHead];
 		}
 
-		topState->exit(this, nextTopState);
+		topState->exit(this, &mStateBall, nextTopState);
 
 		free(topState);
 	}
@@ -63,8 +64,7 @@ void StateStack::update(float dt)
 		{
 			current = mStatesPtrArray[readHead];
 			currentIsTransparent = current->isTransparent();
-			current->tick(this, dt);
-			readHead--;
+			current->tick(this, &mStateBall, dt);
 		}
 		while ( currentIsTransparent && readHead > 0);
 	}

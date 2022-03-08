@@ -16,13 +16,14 @@ set(BAWL_SRC
         main.cpp
         Level/Level.cpp
         Display/Display.cpp
+        Display/Camera.cpp
         ResourceManagement/TextureMap.cpp
         ResourceManagement/FileReader.cpp
         State/GameHandler.cpp
         State/StateStack.cpp
         State/States/EntryState.cpp
         State/States/TestState.cpp
-        Display/Camera.cpp
+        State/States/SpriteTransitionState.cpp
         )
 
 include_directories(

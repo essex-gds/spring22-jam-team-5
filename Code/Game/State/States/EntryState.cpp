@@ -5,7 +5,7 @@ EntryState::EntryState(Display* display)
 	mDisplayPtr = display;
 }
 
-void EntryState::enter(StateBall* stateBallPtr, IState* from)
+void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 {
 	GLOG_INFO("EntryState pushed");
 	if(from != nullptr)
@@ -17,13 +17,13 @@ void EntryState::enter(StateBall* stateBallPtr, IState* from)
 	stateBallPtr->mDisplayPtr->showWindow();
 }
 
-void EntryState::exit(StateStack* stack, IState* to)
+void EntryState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)
 {
 	GLOG_INFO("EntryState popped");
 	stack->push(new TestState());
 }
 
-void EntryState::tick(StateStack* stack, float dt)
+void EntryState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 {
 	stack->pop();
 }

@@ -11,9 +11,9 @@ class EntryState : public IState
 {
 public:
 	EntryState(Display* display);
-	void enter(StateBall* stateBallPtr, IState* from) override;
-	void exit(StateStack* stack, IState* to )         override;
-	void tick(StateStack* stack, float dt)            override;
+	void enter(StateStack* stack, StateBall* stateBallPtr, IState* from)       override;
+	void exit(StateStack* stack, StateBall* stateBallPtr, IState* to )         override;
+	void tick(StateStack* stack, StateBall* stateBallPtr, float dt)            override;
 
 private:
 	Display* mDisplayPtr;

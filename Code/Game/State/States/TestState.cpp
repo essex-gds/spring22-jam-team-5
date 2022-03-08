@@ -2,7 +2,7 @@
 
 static Sprite* s;
 
-void TestState::enter(StateBall* stateBallPtr, IState* from)
+void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 {
 	GLOG_INFO("TestState pushed");
 	stateBallPtr->mDisplayPtr->showWindow();
@@ -39,16 +39,18 @@ void TestState::enter(StateBall* stateBallPtr, IState* from)
 
 	stateBallPtr->mDisplayPtr->addSprite(s);
 
+	SpriteTransitionState* stPtr = new SpriteTransitionState(s,300,300,10, nullptr);
+	stack->push(stPtr);
+
 	memset(l->mTileMap,-1,l->mWidth * l->mHeight);
 
 }
 
-void TestState::exit(StateStack* stack, IState* to)
+void TestState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)
 {
 	GLOG_INFO("TestState popped");
 }
 
-void TestState::tick(StateStack* stack, float dt)
+void TestState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 {
-	s->mX += 10 * dt;
 }
