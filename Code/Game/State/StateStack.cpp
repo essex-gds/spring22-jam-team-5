@@ -53,6 +53,11 @@ void StateStack::pop()
 	}
 }
 
+IState* StateStack::top()
+{
+	return mStatesPtrArray[mStatesWriteHead-1];
+}
+
 void StateStack::update(float dt)
 {
 	if(mStatesWriteHead) // mStatesWriteHead > 0 to stop underflow ( also it means no values on stack )

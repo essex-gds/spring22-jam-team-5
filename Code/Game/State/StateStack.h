@@ -34,6 +34,8 @@ public:
 
 	void pop();
 
+	IState* top();
+
 	void update(float dt);
 
 private:
@@ -44,7 +46,7 @@ private:
 
 	IState** mStatesPtrArray;
 
-	size_t  mStatesWriteHead;
+	long  mStatesWriteHead;
 
 	StateBall mStateBall;
 };

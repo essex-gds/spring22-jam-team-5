@@ -39,7 +39,11 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 
 	stateBallPtr->mDisplayPtr->addSprite(s);
 
-	SpriteTransitionState* stPtr = new SpriteTransitionState(s,300,300,10, nullptr);
+	SpriteTransitionState* stPtr = new SpriteTransitionState(s,300,300,0.5f, [stack](Sprite* m){
+		SpriteTransitionState* stPtr2 = new SpriteTransitionState(s,300,0,0.5f, nullptr);
+		stack->push(stPtr2);
+	});
+
 	stack->push(stPtr);
 
 	memset(l->mTileMap,-1,l->mWidth * l->mHeight);
