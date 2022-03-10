@@ -15,6 +15,14 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 
 	stateBallPtr->mDisplayPtr = mDisplayPtr;
 	stateBallPtr->mDisplayPtr->showWindow();
+
+	hash_t texHash;
+	texHash = TextureMap::requestTexture("A.bmp");
+	mDisplayPtr->setTexture('A',texHash);
+	texHash = TextureMap::requestTexture("2A.bmp");
+	mDisplayPtr->setTexture(2 * 'A',texHash);
+
+
 }
 
 void EntryState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)

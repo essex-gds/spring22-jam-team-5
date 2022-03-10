@@ -10,8 +10,8 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	mLevel  = {};
 	mCamera = {};
 
-	Level* l = Level::create(32,32);
-	mCamera.init(16,16);
+	Level* l = Level::create(70,40);
+	mCamera.init(70,40);
 
 	mCamera.mScrollEnabled = true;
 
@@ -39,15 +39,29 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 
 	stateBallPtr->mDisplayPtr->addSprite(s);
 
-	SpriteTransitionState* stPtr = new SpriteTransitionState(s,300,300,0.5f, [stack](Sprite* m){
+	SpriteTransitionState* stPtr = new SpriteTransitionState(s,300,300,0.5f, [stack](Sprite* m)
+	{
 		SpriteTransitionState* stPtr2 = new SpriteTransitionState(s,300,0,0.5f, nullptr);
 		stack->push(stPtr2);
 	});
 
 	stack->push(stPtr);
 
-	memset(l->mTileMap,-1,l->mWidth * l->mHeight);
+	memset(l->mCharMap,'Z',l->mWidth * l->mHeight);
 
+	NString* test = (NString*) calloc(1, sizeof(NString) + 5 );
+
+	test->len = 5;
+	test->str[0] = 'A';
+	test->str[1] = 'A';
+	test->str[2] = 'A';
+	test->str[3] = '\n';
+	test->str[4] = 'A';
+
+	TextChoiceState* pp =  new TextChoiceState(0, 0, test, (std::vector<NString*> &) stack,
+	                                           (std::function<void(uint8_t)> &) stack, 0);
+
+	stack->push(pp);
 }
 
 void TestState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)

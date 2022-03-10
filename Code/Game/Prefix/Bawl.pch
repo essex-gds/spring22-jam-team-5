@@ -1,2 +1,4 @@
 #define GLOG_LOGGING_ENABLED 1
 #define BUILD_DEBUG 1
+
+#include "Types.h"

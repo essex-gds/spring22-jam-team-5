@@ -1,9 +1,10 @@
 #ifndef BAWL_TESTSTATE_H
 #define BAWL_TESTSTATE_H
 
-#include "SpriteTransitionState.h"
 #include "GameHandler.h"
 #include "IState.h"
+#include "SpriteTransitionState.h"
+#include "TextChoiceState.h"
 
 class TestState : public IState
 {
