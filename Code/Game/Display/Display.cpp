@@ -71,10 +71,14 @@ void Display::drawDisplay()
 
 	drawTileMap(mLevelPtr->mTileMap);
 	drawTileMap(mLevelPtr->mOverTileMap);
-	drawTileMap(mLevelPtr->mActorMap);
+
+	drawSprites(mSprites);
+
+	drawTileMap(mLevelPtr->mOverMap);
 	drawTileMap(mLevelPtr->mCharMap);
 
-	drawOverSprite();
+	drawSprites(mOverSprites);
+
 	drawFX();
 	drawColorMask();
 	drawShaders();
@@ -165,9 +169,9 @@ void Display::drawTileMap(tile_t* map)
 	}
 }
 
-void Display::drawOverSprite()
+void Display::drawSprites(std::vector<Sprite*>& sprites)
 {
-	for(auto & sprite : mSprites)
+	for(auto & sprite : sprites)
 	{
 		TextureEntry tex = TextureMap::getEntry(mTileTextures[sprite->mTileIndex]);
 
@@ -225,4 +229,9 @@ void Display::setTexture(uint8_t index, hash_t tex)
 void Display::addSprite(Sprite* s)
 {
 	mSprites.push_back(s);
+}
+
+void Display::addOverSprite(Sprite* s)
+{
+	mOverSprites.push_back(s);
 }

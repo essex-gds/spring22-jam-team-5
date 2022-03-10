@@ -17,7 +17,7 @@ void GameHandler::enter()
 {
 	// Init
 	mDisplay.init();
-	mDisplay.createWindow(800,800,"Bawl");
+	mDisplay.createWindow(1280,1024,"Bawl");
 	TextureMap::init(&mDisplay);
 
 	// setup

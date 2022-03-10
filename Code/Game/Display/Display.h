@@ -43,7 +43,7 @@ public:
 
 	void drawTileMap(tile_t* map);
 
-	void drawOverSprite();
+	void drawSprites(std::vector<Sprite*>& sprites);
 
 	void drawFX();
 
@@ -60,6 +60,8 @@ public:
 	void setTexture(uint8_t index, hash_t tex);
 
 	void addSprite( Sprite* s );
+
+	void addOverSprite( Sprite* s );
 
 protected:
 
@@ -78,6 +80,7 @@ protected:
 	uint32_t mWindowFlags;
 
 	std::vector<Sprite*> mSprites;
+	std::vector<Sprite*> mOverSprites;
 
 };
 

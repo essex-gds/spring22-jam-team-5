@@ -17,11 +17,11 @@ struct Level
 	uint64_t  mWidth;           //
 	uint64_t  mHeight;          //
 	                            // Pointers point to set offsets in mapData
-	tile_t* mTileMap;           //
-	tile_t* mCharMap;           //
-	tile_t* mOverTileMap;       //
-	tile_t* mActorMap;          //
 	tile_t* mMovementMap;       //
+	tile_t* mTileMap;           //
+	tile_t* mOverTileMap;       //
+	tile_t* mOverMap;           //
+	tile_t* mCharMap;           //
 	tile_t mMapData[0];         // Data for all maps
 
 	static const inline size_t MAP_COUNT = 5; // update when you add / remove a map
