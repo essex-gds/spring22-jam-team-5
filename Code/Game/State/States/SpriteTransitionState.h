@@ -15,6 +15,7 @@ public:
 	void exit(StateStack* stack, StateBall* stateBallPtr, IState* to )   override;
 	void tick(StateStack* stack, StateBall* stateBallPtr, float dt)      override;
 
+	inline bool isTransparent() override { return true; }
 protected:
 
 	Sprite*                       mSpritePtr;

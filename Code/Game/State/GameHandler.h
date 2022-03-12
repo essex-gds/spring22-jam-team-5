@@ -10,7 +10,10 @@
 
 struct ControlState
 {
-	const Uint8* keyboardState;
+	int32_t      mKeyboardSize;
+	const Uint8* mKeyboardHeld;
+	      Uint8* mKeyboardPressed;
+	      Uint8* mKeyboardReleased;
 };
 
 class GameHandler

@@ -5,7 +5,10 @@ GameHandler::GameHandler()
 	mStateStack = {};
 	mCloseRequested = false;
 
-	sControlState.keyboardState = SDL_GetKeyboardState(nullptr);
+	sControlState.mKeyboardHeld = SDL_GetKeyboardState(&sControlState.mKeyboardSize);
+
+	sControlState.mKeyboardPressed  = (uint8_t*) calloc(1, sControlState.mKeyboardSize);
+	sControlState.mKeyboardReleased = (uint8_t*) calloc(1, sControlState.mKeyboardSize);
 }
 
 GameHandler::~GameHandler()
@@ -36,9 +39,9 @@ void GameHandler::updateLoop()
 	{
 		float dt = (float)( SDL_GetTicks64() - prevTime ) / 1000.0f;
 		prevTime = SDL_GetTicks64();
+		updateSDL();
 		mStateStack.update(dt);
 		render();
-		updateSDL();
 	}
 }
 
@@ -54,8 +57,12 @@ void GameHandler::render()
 
 void GameHandler::updateSDL()
 {
+	uint8_t* preUpdate = (uint8_t*) malloc(sControlState.mKeyboardSize);
+	memcpy(preUpdate,sControlState.mKeyboardHeld,sControlState.mKeyboardSize);
+
 	SDL_Event event;
 
+	// poll ( & pump ) updates
 	while(SDL_PollEvent(&event))
 	{
 		switch (event.type)
@@ -65,6 +72,31 @@ void GameHandler::updateSDL()
 				break;
 			default:
 				break;
+		}
+	}
+
+	// do input
+	for( uint32_t i = 0; i < sControlState.mKeyboardSize; i++)
+	{
+		auto o = preUpdate[i];
+		auto n = sControlState.mKeyboardHeld[i];
+
+		if( !o && n )
+		{
+			sControlState.mKeyboardPressed[i] = i;
+		}
+		else
+		{
+			sControlState.mKeyboardPressed[i] = 0;
+		}
+
+		if( o && !n )
+		{
+			sControlState.mKeyboardReleased[i] = i;
+		}
+		else
+		{
+			sControlState.mKeyboardReleased[i] = 0;
 		}
 	}
 }

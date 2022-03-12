@@ -16,9 +16,8 @@ public:
 	virtual void exit(  StateStack* stack,  StateBall* stateBallPtr, IState* to  ) = 0;
 	virtual void tick(  StateStack* stack,  StateBall* stateBallPtr, float dt    ) = 0;
 
-	inline virtual bool isTransparent() { return mIsTransparent; }
+	inline virtual bool isTransparent() { return false; }
 private:
-	static inline bool mIsTransparent;
 };
 
 #endif // BAWL_ISTATE_H

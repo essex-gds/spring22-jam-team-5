@@ -14,6 +14,7 @@ set(BAWL_PCH
 set(BAWL_SRC
         ${BAWL_PCH}
         main.cpp
+        Sys/NString.cpp
         Level/Level.cpp
         Display/Display.cpp
         Display/Camera.cpp
