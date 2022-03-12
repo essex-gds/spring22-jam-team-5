@@ -23,7 +23,7 @@ public:
 	virtual void DisplayOption(const StateBall* stateBallPtr, uint32_t& x, uint32_t& y,
 				   const uint32_t offsetX, const uint32_t offsetY, const NString* msg);
 
-	inline bool isTransparent() override { return false; }
+	inline bool isTransparent() override { return true; }
 private:
 	uint32_t       mOffsetX;
 	uint32_t       mOffsetY;

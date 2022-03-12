@@ -89,16 +89,16 @@ void TextChoiceState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 		}
 	}
 
-	if(  GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_BACKSPACE]
-	  || GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_D        ]
-	  || GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_RIGHT    ])
+	if(  GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_RETURN    ]
+	  || GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_D         ]
+	  || GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_RIGHT     ])
 	{
 		mOptionCallback(mSelected,1);
 	}
 
-	if(  GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_RETURN]
-	  || GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_A     ]
-	  || GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_LEFT  ])
+	if(  GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_BACKSPACE ]
+	  || GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_A         ]
+	  || GameHandler::getControlState()->mKeyboardReleased[SDL_SCANCODE_LEFT      ])
 	{
 		mOptionCallback(mSelected,-1);
 	}

@@ -1,6 +1,8 @@
 #ifndef BAWL_STATEENTRY_H
 #define BAWL_STATEENTRY_H
 
+#include <vector>
+
 #include "Display.h"
 #include "Camera.h"
 #include "Level.h"
@@ -42,11 +44,7 @@ private:
 
 	static inline const size_t INITIAL_STATES_STACK_SIZE = 4;
 
-	size_t  mStatesArraySize;
-
-	IState** mStatesPtrArray;
-
-	long  mStatesWriteHead;
+	std::vector<IState*> mStatesPtrArray;
 
 	StateBall mStateBall;
 };

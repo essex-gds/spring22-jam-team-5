@@ -25,11 +25,6 @@ void SpriteTransitionState::enter(StateStack* stack, StateBall* stateBallPtr, IS
 void SpriteTransitionState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)
 {
 	GLOG_INFO("SpriteTransitionState popped");
-	if(mCompletedCallBack)
-	{
-		// notify transition has ended
-		mCompletedCallBack(mSpritePtr);
-	}
 }
 
 void SpriteTransitionState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
@@ -51,5 +46,11 @@ void SpriteTransitionState::tick(StateStack* stack, StateBall* stateBallPtr, flo
 		{                         // not the best system as it can get buried
 			stack->pop();     // just don't bury it in a ton of states I guess?
 		}                         // _EWA_REVISIT_ : do it better!
+
+		if(mCompletedCallBack)
+		{
+			mCompletedCallBack(mSpritePtr);
+			mCompletedCallBack = nullptr;
+		}
 	}
 }

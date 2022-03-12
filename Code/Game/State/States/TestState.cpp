@@ -46,7 +46,6 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 
 	stack->push(stPtr);
 
-
 	std::vector<NString*>* choices = new std::vector<NString*>();
 	NString* test = NString::create(    " LIBERATION");
 	choices->push_back( NString::create(" PLAY   ") );
@@ -55,8 +54,19 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	choices->push_back( NString::create(" EXIT   ") );
 
 	TextChoiceState* pp =  new TextChoiceState(0, 0, test, *choices,
-						   0, [&](int8_t i, int8_t d){
+						   0, [&, stack](int8_t i, int8_t d){
 			printf("%d %d\n",i, d);
+
+			SpriteTransitionState* stPtr = new SpriteTransitionState(s,300,300,0.5f, [stack](Sprite* m)
+			{
+				SpriteTransitionState* stPtr2 = new SpriteTransitionState(s,300,0,0.5f, nullptr);
+				stack->push(stPtr2);
+			});
+
+			if( i == 0 && d == 1 )
+			{
+				stack->push(stPtr);
+			}
 	});
 
 	stack->push(pp);

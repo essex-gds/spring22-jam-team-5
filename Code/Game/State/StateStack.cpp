@@ -8,69 +8,56 @@ void StateBall::repack()
 
 StateStack::StateStack()
 {
-	mStatesPtrArray  = (IState**) calloc( INITIAL_STATES_STACK_SIZE, sizeof(IState*) );
-	mStatesArraySize = INITIAL_STATES_STACK_SIZE;
-	mStatesWriteHead = 0;
-
+	mStatesPtrArray  = {};
 	mStateBall = {};
 }
 
 StateStack::~StateStack()
 {
-	free(mStatesPtrArray);
+
 }
 
 void StateStack::push(IState* newState)
 {
-	IState* topState = nullptr;
-
-	if(mStatesWriteHead)
-	{
-		topState = mStatesPtrArray[mStatesWriteHead - 1];
-	}
-
-	mStatesPtrArray[mStatesWriteHead] = newState;
-	mStatesWriteHead++;
-
+	IState* topState = top();
+	mStatesPtrArray.push_back(newState);
 	newState->enter(this, &mStateBall, topState);
 }
 
 void StateStack::pop()
 {
-	if(mStatesWriteHead)
-	{
-		IState* topState     = mStatesPtrArray[--mStatesWriteHead];
-		IState* nextTopState = nullptr;
-
-		if (mStatesWriteHead)
-		{
-			nextTopState = mStatesPtrArray[mStatesWriteHead];
-		}
-
-		topState->exit(this, &mStateBall, nextTopState);
-
-		free(topState);
-	}
+	IState* topState = top();
+	mStatesPtrArray.pop_back();
+	topState->exit(this,&mStateBall,top());
 }
 
 IState* StateStack::top()
 {
-	return mStatesPtrArray[mStatesWriteHead-1];
+	if(!mStatesPtrArray.empty())
+	{
+
+		return mStatesPtrArray.back();
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 void StateStack::update(float dt)
 {
-	if(mStatesWriteHead) // mStatesWriteHead > 0 to stop underflow ( also it means no values on stack )
+	std::vector<IState*> copyArr(mStatesPtrArray);
+
+	for( size_t i = copyArr.size()-1; i >= 0; i--)
 	{
-		size_t  readHead = mStatesWriteHead-1;
-		IState* current = nullptr;
-		bool currentIsTransparent;
-		do
+		IState* current = copyArr[i];
+		if(current != nullptr)
 		{
-			current = mStatesPtrArray[readHead];
-			currentIsTransparent = current->isTransparent();
 			current->tick(this, &mStateBall, dt);
+			if (!current->isTransparent())
+			{
+				break;
+			}
 		}
-		while ( currentIsTransparent && readHead > 0);
 	}
 }
