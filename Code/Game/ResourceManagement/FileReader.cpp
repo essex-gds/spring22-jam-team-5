@@ -15,7 +15,9 @@ SDL_Surface* readTexture(const char* fName)
 
 	SDL_Surface* surface = SDL_LoadBMP(fNameBuff);
 
-	SDL_SetColorKey( surface, SDL_TRUE, SDL_MapRGB( surface->format, 0x00, 0x00, 0x00 ) );
-
+	if(surface != nullptr)
+	{
+		SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0x00, 0x00, 0x00));
+	}
 	return surface;
 }

@@ -25,7 +25,7 @@ hash_t TextureMap::requestTexture(const char* texHandle)
 
 	if (mEntryMap.find(hash) == mEntryMap.end())
 	{
-		GLOG_INFO("TexHandle requested but no loaded %s", texHandle);
+		GLOG_INFO("TexHandle requested but no loaded: %s", texHandle);
 		SDL_Surface* sur =  readTexture(texHandle);
 
 		TextureEntry newEntry = {};
@@ -43,7 +43,7 @@ hash_t TextureMap::requestTexture(const char* texHandle)
 		}
 		else
 		{
-			GLOG_INFO("Texture not located");
+			GLOG_INFO("Texture not located: %s", texHandle);
 		}
 	}
 	return hash;
