@@ -19,11 +19,10 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	stateBallPtr->mCameraPtr = &mCamera;
 	stateBallPtr->repack();
 
+	memset(l->mOverMap,' ',l->mWidth * l->mHeight);
+	memset(l->mCharMap,' ',l->mWidth * l->mHeight);
 
-	hash_t hash =TextureMap::requestTexture("BLANK_TEXTURE.bmp");
-	stateBallPtr->mDisplayPtr->setTexture(0, hash);
-
-	hash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
+	hash_t hash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
 	stateBallPtr->mDisplayPtr->setTexture(1, hash);
 
 	hash =TextureMap::requestTexture("CIRC_TEXTURE.bmp");
@@ -47,21 +46,21 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 
 	stack->push(stPtr);
 
-	memset(l->mCharMap,'Z',l->mWidth * l->mHeight);
 
-	NString* test = (NString*) calloc(1, sizeof(NString) + 5 );
+	std::vector<NString*>* choices = new std::vector<NString*>();
+	NString* test = NString::create(    " LIBERATION");
+	choices->push_back( NString::create(" PLAY   ") );
+	choices->push_back( NString::create(" OPTION ") );
+	choices->push_back( NString::create(" OPTION ") );
+	choices->push_back( NString::create(" EXIT   ") );
 
-	test->len = 5;
-	test->str[0] = 'A';
-	test->str[1] = 'A';
-	test->str[2] = 'A';
-	test->str[3] = '\n';
-	test->str[4] = 'A';
-
-	TextChoiceState* pp =  new TextChoiceState(0, 0, test, (std::vector<NString*> &) stack,
-	                                           (std::function<void(uint8_t)> &) stack, 0);
+	TextChoiceState* pp =  new TextChoiceState(0, 0, test, *choices,
+						   0, [&](int8_t i, int8_t d){
+			printf("%d %d\n",i, d);
+	});
 
 	stack->push(pp);
+
 }
 
 void TestState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)
@@ -71,4 +70,5 @@ void TestState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)
 
 void TestState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 {
+
 }
