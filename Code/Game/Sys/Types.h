@@ -4,12 +4,8 @@
 #include <cstdint>
 #include <cstddef>
 
-typedef size_t hash_t;
+#include "NString.h"
 
-struct NString
-{
-	size_t len;
-	char   str[0];
-};
+typedef size_t hash_t;
 
 #endif // BAWL_TYPES_H
