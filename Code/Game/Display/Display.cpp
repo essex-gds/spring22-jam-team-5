@@ -231,7 +231,17 @@ void Display::addSprite(Sprite* s)
 	mSprites.push_back(s);
 }
 
+void Display::removeSprite(Sprite* s)
+{
+	mSprites.erase(std::remove(mSprites.begin(), mSprites.end(), s), mSprites.end());
+}
+
 void Display::addOverSprite(Sprite* s)
 {
 	mOverSprites.push_back(s);
+}
+
+void Display::removeOverSprite(Sprite* s)
+{
+	mOverSprites.erase(std::remove(mOverSprites.begin(), mOverSprites.end(), s), mOverSprites.end());
 }

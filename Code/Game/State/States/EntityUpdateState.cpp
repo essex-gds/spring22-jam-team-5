@@ -2,7 +2,7 @@
 
 EntityUpdateState::EntityUpdateState()
 {
-
+	mEntities = {};
 }
 
 EntityUpdateState::~EntityUpdateState()
@@ -22,5 +22,13 @@ void EntityUpdateState::exit(StateStack* stack, StateBall* stateBallPtr, IState*
 
 void EntityUpdateState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 {
+	for(Entity* e : mEntities)
+	{
+		e->update(dt,mEntities);
+	}
+}
 
+void EntityUpdateState::addEntity(Entity* e)
+{
+	mEntities.push_back(e);
 }

@@ -61,7 +61,11 @@ public:
 
 	void addSprite( Sprite* s );
 
+	void removeSprite( Sprite* s );
+
 	void addOverSprite( Sprite* s );
+
+	void removeOverSprite( Sprite* s );
 
 protected:
 
