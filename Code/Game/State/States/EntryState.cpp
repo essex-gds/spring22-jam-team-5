@@ -17,6 +17,17 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	stateBallPtr->mDisplayPtr->showWindow();
 
 	hash_t texHash;
+
+	texHash = TextureMap::requestTexture("Player.bmp");
+	mDisplayPtr->setTexture(1,texHash);
+
+	texHash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(2, texHash);
+
+	texHash =TextureMap::requestTexture("CIRC_TEXTURE.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(3, texHash);
+
+
 	texHash = TextureMap::requestTexture("A.bmp");
 	mDisplayPtr->setTexture('A',texHash);
 	texHash = TextureMap::requestTexture("B.bmp");
