@@ -28,6 +28,9 @@ set(BAWL_SRC
         State/States/SpriteTransitionState.cpp
         State/States/EntityUpdateState.cpp
         State/States/TextChoiceState.cpp
+        State/States/MainMenuState.cpp
+        State/States/LevelLoadState.cpp
+        State/States/GameState.cpp
         )
 
 include_directories(

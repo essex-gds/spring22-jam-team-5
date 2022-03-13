@@ -1,6 +1,7 @@
 #ifndef BAWL_TYPES_H
 #define BAWL_TYPES_H
 
+#include <cfloat>
 #include <cstdint>
 #include <cstddef>
 
