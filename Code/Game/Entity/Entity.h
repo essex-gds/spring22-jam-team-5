@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Display.h"
+#include "StateStack.h"
 
 class Entity
 {
@@ -14,7 +15,7 @@ public:
 
 	virtual ~Entity();
 
-	virtual void update(float dt, std::vector<Entity*>& fellows);
+	virtual void update(StateBall* stateBallPtr, float dt, std::vector<Entity*>& fellows);
 
 	static std::vector<Entity*> fellowsWithinRange(double x, double y, double range, std::vector<Entity*>& fellows);
 

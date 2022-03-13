@@ -20,7 +20,7 @@ Entity::~Entity()
 
 }
 
-void Entity::update(float dt, std::vector<Entity*>& fellows)
+void Entity::update(StateBall* stateBallPtr, float dt, std::vector<Entity*>& fellows)
 {
 	mX += mXVelocity;
 	mY += mYVelocity;
