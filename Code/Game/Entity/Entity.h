@@ -22,7 +22,7 @@ public:
 	static std::vector<Entity*> fellowsWithinBox(double x1, double y1, double x2, double y2,
 						     std::vector<Entity*>& fellows);
 
-private:
+protected:
 
 	double & mX;
 	double & mY;
