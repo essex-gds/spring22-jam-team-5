@@ -21,12 +21,11 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	texHash = TextureMap::requestTexture("Player.bmp");
 	mDisplayPtr->setTexture(PLAYER_TEXTURE,texHash);
 
-	texHash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
-	stateBallPtr->mDisplayPtr->setTexture(2, texHash);
-
 	texHash =TextureMap::requestTexture("CIRC_TEXTURE.bmp");
-	stateBallPtr->mDisplayPtr->setTexture(3, texHash);
+	stateBallPtr->mDisplayPtr->setTexture(CIRC_TEXTURE, texHash);
 
+	texHash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(3, texHash);
 
 	texHash = TextureMap::requestTexture("A.bmp");
 	mDisplayPtr->setTexture('A',texHash);

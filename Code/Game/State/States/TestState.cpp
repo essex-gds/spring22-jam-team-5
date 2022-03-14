@@ -22,12 +22,6 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	memset(l->mOverMap,' ',l->mWidth * l->mHeight);
 	memset(l->mCharMap,' ',l->mWidth * l->mHeight);
 
-	hash_t hash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
-	stateBallPtr->mDisplayPtr->setTexture(1, hash);
-
-	hash =TextureMap::requestTexture("CIRC_TEXTURE.bmp");
-	stateBallPtr->mDisplayPtr->setTexture(3, hash);
-
 	s = (Sprite*) malloc(sizeof(Sprite));
 
 	s->mTileIndex = 3;
@@ -53,8 +47,14 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	choices->push_back( NString::create(" OPTION ") );
 	choices->push_back( NString::create(" EXIT   ") );
 
+
+	EntityUpdateState* es = new EntityUpdateState();
+
+	stack->push(es);
+
+
 	TextChoiceState* pp =  new TextChoiceState(0, 0, test, *choices,
-						   0, [&, stack](int8_t i, int8_t d){
+						   0, [es,stateBallPtr, stack](int8_t i, int8_t d){
 			printf("%d %d\n",i, d);
 
 			SpriteTransitionState* stPtr = new SpriteTransitionState(s,300,300,0.5f, [stack](Sprite* m)
@@ -67,10 +67,28 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 			{
 				stack->push(stPtr);
 			}
+
+			if(i == 1 && d == 1)
+			{
+
+			}
+
+			if(i == 2)
+			{
+
+				Entity* e = new Player(stateBallPtr->mDisplayPtr);
+
+				es->addEntity(e);
+
+			}
+
+			if(i == 3)
+			{
+				::exit(0);
+			}
 	});
 
 	stack->push(pp);
-
 }
 
 void TestState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)

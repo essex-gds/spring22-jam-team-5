@@ -2,9 +2,15 @@
 #define BAWL_TESTSTATE_H
 
 #include "GameHandler.h"
+
 #include "IState.h"
 #include "SpriteTransitionState.h"
 #include "TextChoiceState.h"
+#include "EntityUpdateState.h"
+
+#include "Entity.h"
+#include "Player.h"
+
 
 class TestState : public IState
 {

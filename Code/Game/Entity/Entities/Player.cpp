@@ -41,6 +41,25 @@ void Player::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 	{
 		mX += mHSpeed * dt;
 	}
+
+	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_SPACE])
+	{
+		double x = mX + mWidth;
+		double y= mY + mHeight/2;
+		Bullet* bullet = new Bullet(stateBallPtr, x, y);
+		bullet->setXDir(1);
+		fellows.push_back(bullet);
+
+		bullet = new Bullet(stateBallPtr, x, y);
+		bullet->setXDir(1);
+		bullet->setYDir(.25);
+		fellows.push_back(bullet);
+
+		bullet = new Bullet(stateBallPtr, x, y);
+		bullet->setXDir(1);
+		bullet->setYDir(-.25);
+		fellows.push_back(bullet);
+	}
 }
 
 double Player::getHSpeed()

@@ -2,9 +2,11 @@
 #define BAWL_PLAYER_H
 
 #include "TileMapEnum.h"
-#include "Entity.h"
 
 #include "GameHandler.h"
+
+#include "Entity.h"
+#include "Bullet.h"
 
 class Player : public Entity
 {

@@ -6,6 +6,7 @@ enum tileMap
 {
 	DEFAULT_TEXTURE = 0,
 	PLAYER_TEXTURE  = 1,
+	CIRC_TEXTURE    = 2,
 
 	A = 'A'
 };
