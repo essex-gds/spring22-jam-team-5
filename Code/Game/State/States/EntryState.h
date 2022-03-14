@@ -3,6 +3,7 @@
 
 #include "gLog.h"
 
+#include "TileMapEnum.h"
 #include "Display.h"
 #include "IState.h"
 #include "TestState.h"
@@ -14,6 +15,7 @@ public:
 	void enter(StateStack* stack, StateBall* stateBallPtr, IState* from)       override;
 	void exit(StateStack* stack, StateBall* stateBallPtr, IState* to )         override;
 	void tick(StateStack* stack, StateBall* stateBallPtr, float dt)            override;
+
 
 private:
 	Display* mDisplayPtr;

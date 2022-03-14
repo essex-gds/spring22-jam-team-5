@@ -19,7 +19,7 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	hash_t texHash;
 
 	texHash = TextureMap::requestTexture("Player.bmp");
-	mDisplayPtr->setTexture(1,texHash);
+	mDisplayPtr->setTexture(PLAYER_TEXTURE,texHash);
 
 	texHash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
 	stateBallPtr->mDisplayPtr->setTexture(2, texHash);
