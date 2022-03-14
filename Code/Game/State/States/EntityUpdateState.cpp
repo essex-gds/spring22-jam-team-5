@@ -24,7 +24,7 @@ void EntityUpdateState::tick(StateStack* stack, StateBall* stateBallPtr, float d
 {
 	for(Entity* e : mEntities)
 	{
-		e->update(dt,mEntities);
+		e->update(stateBallPtr, dt,mEntities);
 	}
 }
 

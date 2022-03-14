@@ -9,6 +9,9 @@
 class Entity
 {
 public:
+
+	HAS_ID("BASE---");
+
 	Entity(Sprite* sprite);
 
 	Entity(Sprite* sprite, double xVelocity, double yVelocity);
@@ -22,6 +25,7 @@ public:
 	static std::vector<Entity*> fellowsWithinBox(double x1, double y1, double x2, double y2,
 						     std::vector<Entity*>& fellows);
 
+	static inline bool cmpID(ID& a, ID& b) { return (uint64_t) a == (uint64_t) b; };
 protected:
 
 	double & mX;
@@ -31,7 +35,6 @@ protected:
 	double   mXVelocity;
 	double   mYVelocity;
 	Sprite * mSprite;
-
 };
 
 #endif // BAWL_ENTITY_H

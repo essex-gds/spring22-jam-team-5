@@ -20,8 +20,8 @@ set(BAWL_SRC
         Display/Camera.cpp
         ResourceManagement/TextureMap.cpp
         ResourceManagement/FileReader.cpp
-        Entity/Entity.cpp
         State/GameHandler.cpp
+
         State/StateStack.cpp
         State/States/EntryState.cpp
         State/States/TestState.cpp
@@ -31,6 +31,10 @@ set(BAWL_SRC
         State/States/MainMenuState.cpp
         State/States/LevelLoadState.cpp
         State/States/GameState.cpp
+
+        Entity/Entity.cpp
+        Entity/Entities/Player.cpp
+        Entity/Entities/Bullet.cpp
         )
 
 include_directories(
@@ -42,6 +46,7 @@ include_directories(
         State
         State/States
         Entity
+        Entity/Entities
 )
 
 add_executable(Bawl ${BAWL_SRC})
