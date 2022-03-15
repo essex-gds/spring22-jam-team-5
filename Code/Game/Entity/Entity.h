@@ -5,6 +5,7 @@
 
 #include "Display.h"
 #include "StateStack.h"
+#include "IComponent.h"
 
 class Entity
 {
@@ -19,6 +20,10 @@ public:
 	virtual ~Entity();
 
 	virtual void update(StateBall* stateBallPtr, float dt, std::vector<Entity*>& fellows);
+
+	virtual void addComponent(IComponent* component);
+
+	virtual void removeComponent(IComponent* component);
 
 	static std::vector<Entity*> fellowsWithinRange(double x, double y, double range, std::vector<Entity*>& fellows);
 
@@ -35,6 +40,8 @@ protected:
 	double   mXVelocity;
 	double   mYVelocity;
 	Sprite * mSprite;
+
+	std::vector<IComponent*> mComponents;
 };
 
 #endif // BAWL_ENTITY_H

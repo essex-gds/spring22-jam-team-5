@@ -35,6 +35,8 @@ set(BAWL_SRC
         Entity/Entity.cpp
         Entity/Entities/Player.cpp
         Entity/Entities/Bullet.cpp
+
+        Entity/Components/Timer.cpp
         )
 
 include_directories(
@@ -47,6 +49,7 @@ include_directories(
         State/States
         Entity
         Entity/Entities
+        Entity/Components
 )
 
 add_executable(Bawl ${BAWL_SRC})

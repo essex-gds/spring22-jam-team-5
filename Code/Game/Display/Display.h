@@ -51,6 +51,14 @@ public:
 
 	void drawShaders();
 
+	void addSprite( Sprite* s );
+
+	void removeSprite( Sprite* s );
+
+	void addOverSprite( Sprite* s );
+
+	void removeOverSprite( Sprite* s );
+
 	SDL_Renderer* getRenderer();
 
 	void setLevel(Level*  levelPtr);
@@ -59,13 +67,9 @@ public:
 
 	void setTexture(uint8_t index, hash_t tex);
 
-	void addSprite( Sprite* s );
+	int32_t getWidth();
 
-	void removeSprite( Sprite* s );
-
-	void addOverSprite( Sprite* s );
-
-	void removeOverSprite( Sprite* s );
+	int32_t getHeight();
 
 protected:
 

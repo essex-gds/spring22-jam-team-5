@@ -1,11 +1,12 @@
 #include "Entity.h"
 
 Entity::Entity(Sprite* sprite)
-	: mX      (sprite->mX)
-	, mY      (sprite->mY)
-	, mWidth  (sprite->mWidth)
-	, mHeight (sprite->mHeight)
-	, mSprite (sprite)
+	: mX          (sprite->mX)
+	, mY          (sprite->mY)
+	, mWidth      (sprite->mWidth)
+	, mHeight     (sprite->mHeight)
+	, mSprite     (sprite)
+	, mComponents ()
 {}
 
 Entity::Entity(Sprite* sprite, double xVelocity, double yVelocity)
@@ -24,6 +25,22 @@ void Entity::update(StateBall* stateBallPtr, float dt, std::vector<Entity*>& fel
 {
 	mX += mXVelocity;
 	mY += mYVelocity;
+
+	auto components = mComponents;
+	for( auto& c : components)
+	{
+		c->update(*this,dt);
+	}
+}
+
+void Entity::addComponent(IComponent* component)
+{
+	mComponents.push_back(component);
+}
+
+void Entity::removeComponent(IComponent* component)
+{
+	mComponents.erase(std::remove(mComponents.begin(), mComponents.end(), component), mComponents.end());
 }
 
 std::vector<Entity*> Entity::fellowsWithinRange(double x, double y, double range, std::vector<Entity*>& fellows)
