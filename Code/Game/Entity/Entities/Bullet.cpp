@@ -26,6 +26,15 @@ void Bullet::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 	mXVelocity = sBulletSpeed * mXDir * dt;
 	mYVelocity = sBulletSpeed * mYDir * dt;
 	Entity::update(stateBallPtr, dt, fellows);
+
+	// delete when it goes of screen
+
+	if (  mX > stateBallPtr->mDisplayPtr->getWidth()
+	   && mY > stateBallPtr->mDisplayPtr->getHeight() )
+	{
+		fellows.erase(std::remove(fellows.begin(), fellows.end(), this), fellows.end());
+		delete this;
+	}
 }
 
 void Bullet::setXDir(double xDir)

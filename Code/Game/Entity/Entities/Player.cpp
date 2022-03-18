@@ -3,6 +3,7 @@
 Player::Player(Display* displayPtr)
 	: Entity    ( (Sprite*) malloc(sizeof(Sprite) ) )
 	, mDisplayPtr  (displayPtr)
+
 {
 	mSprite->mTileIndex = PLAYER_TEXTURE;
 	mSprite->mWidth = 64;
@@ -10,8 +11,15 @@ Player::Player(Display* displayPtr)
 
 	mDisplayPtr->addSprite(mSprite);
 
-	mVSpeed = 200;
+	mVSpeed = 100;
 	mHSpeed = 100;
+
+	mCanShoot    = false;
+	mMultiShoot  = 0;
+	mBulletTimer = Timer(0.3,[&](IComponent* a){
+		mCanShoot = true;
+		mBulletTimer.reset();
+	});
 }
 
 Player::~Player()
@@ -24,42 +32,55 @@ void Player::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 {
 	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_S])
 	{
-		mY += mVSpeed * dt;
+		mYVelocity += mVSpeed * dt;
 	}
 
 	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_W])
 	{
-		mY -= mVSpeed * dt;
+		mYVelocity -= mVSpeed * dt;
 	}
 
 	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_A])
 	{
-		mX -= mHSpeed * dt;
+		mXVelocity -= mHSpeed * dt;
 	}
 
 	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_D])
 	{
-		mX += mHSpeed * dt;
+		mXVelocity += mHSpeed * dt;
 	}
 
-	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_SPACE])
+	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_SPACE]
+	&& mCanShoot)
 	{
+		mCanShoot = false;
 		double x = mX + mWidth;
 		double y= mY + mHeight/2;
+
 		Bullet* bullet = new Bullet(stateBallPtr, x, y);
 		bullet->setXDir(1);
 		fellows.push_back(bullet);
 
-		bullet = new Bullet(stateBallPtr, x, y);
-		bullet->setXDir(1);
-		bullet->setYDir(.25);
-		fellows.push_back(bullet);
+		if(mMultiShoot == 1)
+		{
+			bullet = new Bullet(stateBallPtr, x, y);
+			bullet->setXDir(1);
+			bullet->setYDir(.25);
+			fellows.push_back(bullet);
 
-		bullet = new Bullet(stateBallPtr, x, y);
-		bullet->setXDir(1);
-		bullet->setYDir(-.25);
-		fellows.push_back(bullet);
+			bullet = new Bullet(stateBallPtr, x, y);
+			bullet->setXDir(1);
+			bullet->setYDir(-.25);
+			fellows.push_back(bullet);
+		}
 	}
+
+	mXVelocity *= 0.80;
+	mYVelocity *= 0.80;
+
+	mBulletTimer.update(*this, dt);
+
+	Entity::update(stateBallPtr,dt, fellows);
 }
 
 double Player::getHSpeed()

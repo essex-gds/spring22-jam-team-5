@@ -206,6 +206,26 @@ void Display::drawShaders()
 
 }
 
+void Display::addSprite(Sprite* s)
+{
+	mSprites.push_back(s);
+}
+
+void Display::removeSprite(Sprite* s)
+{
+	mSprites.erase(std::remove(mSprites.begin(), mSprites.end(), s), mSprites.end());
+}
+
+void Display::addOverSprite(Sprite* s)
+{
+	mOverSprites.push_back(s);
+}
+
+void Display::removeOverSprite(Sprite* s)
+{
+	mOverSprites.erase(std::remove(mOverSprites.begin(), mOverSprites.end(), s), mOverSprites.end());
+}
+
 SDL_Renderer* Display::getRenderer()
 {
 	return mRenderer;
@@ -226,22 +246,12 @@ void Display::setTexture(uint8_t index, hash_t tex)
 	mTileTextures[index] = tex;
 }
 
-void Display::addSprite(Sprite* s)
+int32_t Display::getWidth()
 {
-	mSprites.push_back(s);
+	return mWindowWidth;
 }
 
-void Display::removeSprite(Sprite* s)
+int32_t Display::getHeight()
 {
-	mSprites.erase(std::remove(mSprites.begin(), mSprites.end(), s), mSprites.end());
-}
-
-void Display::addOverSprite(Sprite* s)
-{
-	mOverSprites.push_back(s);
-}
-
-void Display::removeOverSprite(Sprite* s)
-{
-	mOverSprites.erase(std::remove(mOverSprites.begin(), mOverSprites.end(), s), mOverSprites.end());
+	return mWindowHeight;
 }

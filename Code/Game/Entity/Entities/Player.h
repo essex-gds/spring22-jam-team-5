@@ -8,6 +8,8 @@
 #include "Entity.h"
 #include "Bullet.h"
 
+#include "Timer.h"
+
 class Player : public Entity
 {
 public:
@@ -31,8 +33,12 @@ private:
 
 	Display* mDisplayPtr;
 
-	double mVSpeed;
-	double mHSpeed;
+	double   mVSpeed;
+	double   mHSpeed;
+
+	bool     mCanShoot;
+	int      mMultiShoot;
+	Timer    mBulletTimer;
 };
 
 

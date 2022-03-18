@@ -21,7 +21,7 @@ public:
 
 protected:
 
-	static inline double sBulletSpeed = 500;
+	static inline double sBulletSpeed = 800;
 
 	double     mXDir;
 	double     mYDir;
