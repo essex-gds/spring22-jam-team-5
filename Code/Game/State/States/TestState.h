@@ -10,7 +10,7 @@
 
 #include "Entity.h"
 #include "Player.h"
-#include "StandardShip.h"
+
 
 class TestState : public IState
 {

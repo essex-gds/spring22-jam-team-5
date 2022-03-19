@@ -35,8 +35,6 @@ set(BAWL_SRC
         Entity/Entity.cpp
         Entity/Entities/Player.cpp
         Entity/Entities/Bullet.cpp
-        Entity/Entities/StandardShip.cpp
-        Entity/Entities/ShipSpawnerEntity.cpp
 
         Entity/Components/Timer.cpp
         )

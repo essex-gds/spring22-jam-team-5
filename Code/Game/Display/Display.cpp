@@ -1,29 +1,5 @@
 #include "Display.h"
 
-Sprite* Sprite::create(uint8_t tileIndex, double x, double y, double width, double height)
-{
-	Sprite* ret = (Sprite*) malloc( sizeof(Sprite) );
-	ret->mTileIndex  = tileIndex;
-	ret->mX          = x;
-	ret->mY          = y;
-	ret->mWidth      = width;
-	ret->mHeight     = height;
-	ret->mAngle      = 0;
-	ret->mFlip       = SDL_FLIP_NONE;
-	ret->mAlpha      = 255;
-	ret->mRShift     = 255;
-	ret->mBShift     = 255;
-	ret->mGShift     = 255;
-
-
-	return ret;
-}
-
-Sprite* Sprite::create(uint8_t tileIndex)
-{
-	return create(tileIndex, 0, 0, 32, 32);
-}
-
 Display::Display()
 {
 	mLevelPtr  = nullptr;
@@ -66,8 +42,6 @@ int Display::createWindow(int32_t width, int32_t height, const char* title)
 
 	// -1 indicates best fit for whatever reason
 	mRenderer = SDL_CreateRenderer(mWindow,-1, mRendererFlags);
-
-	SDL_SetRenderDrawBlendMode(mRenderer, SDL_BLENDMODE_ADD);
 
 	return GLOG_SUCCESS;
 }
@@ -208,17 +182,12 @@ void Display::drawSprites(std::vector<Sprite*>& sprites)
 		src.h = tex.mSurface->h;
 
 		SDL_Rect dst;
-		dst.x = (int32_t) sprite->mX - (sprite->mWidth/2);
-		dst.y = (int32_t) sprite->mY - (sprite->mHeight/2);
+		dst.x = (int32_t) sprite->mX;
+		dst.y = (int32_t) sprite->mY;
 		dst.w = (int32_t) sprite->mWidth;
 		dst.h = (int32_t) sprite->mHeight;
 
-		SDL_SetTextureAlphaMod(tex.mTexture, sprite->mAlpha);
-		SDL_SetTextureColorMod(tex.mTexture, sprite->mRShift, sprite->mGShift, sprite->mBShift);
-
-		SDL_RenderCopyEx(mRenderer, tex.mTexture, &src, &dst, sprite->mAngle, NULL, sprite->mFlip);
-
-		SDL_SetTextureAlphaMod(tex.mTexture, UINT8_MAX);
+		SDL_RenderCopy(mRenderer, tex.mTexture, &src, &dst);
 	}
 }
 
@@ -285,24 +254,4 @@ int32_t Display::getWidth()
 int32_t Display::getHeight()
 {
 	return mWindowHeight;
-}
-
-uint64_t Display::getTilesPerWidth()
-{
-	return mCameraPtr->mWidth;
-}
-
-uint64_t Display::getTilesPerHeight()
-{
-	return mCameraPtr->mHeight;
-}
-
-uint64_t Display::getTilesWidth()
-{
-	return mWindowWidth / mCameraPtr->mWidth;
-}
-
-uint64_t Display::getTileHeight()
-{
-	return mWindowHeight / mCameraPtr->mHeight;
 }

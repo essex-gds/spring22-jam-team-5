@@ -23,9 +23,10 @@ void EntityUpdateState::exit(StateStack* stack, StateBall* stateBallPtr, IState*
 void EntityUpdateState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 {
 	auto entities = mEntities;
-	for(auto e : entities)
+	for( int i = 0; i < entities.size(); i++ )
 	{
-			e->update(stateBallPtr, dt,mEntities);
+		Entity* e = entities[i];
+		e->update(stateBallPtr, dt,mEntities);
 	}
 }
 

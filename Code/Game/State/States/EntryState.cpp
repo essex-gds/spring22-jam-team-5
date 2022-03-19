@@ -48,13 +48,13 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	texHash = TextureMap::requestTexture("J.bmp");
 	mDisplayPtr->setTexture('J',texHash);
 	texHash = TextureMap::requestTexture("K.bmp");
-	texHash = TextureMap::requestTexture("L.bmp");
-	mDisplayPtr->setTexture('L',texHash);
 	mDisplayPtr->setTexture('K',texHash);
 	texHash = TextureMap::requestTexture("M.bmp");
 	mDisplayPtr->setTexture('M',texHash);
 	texHash = TextureMap::requestTexture("N.bmp");
 	mDisplayPtr->setTexture('N',texHash);
+	texHash = TextureMap::requestTexture("L.bmp");
+	mDisplayPtr->setTexture('L',texHash);
 	texHash = TextureMap::requestTexture("O.bmp");
 	mDisplayPtr->setTexture('O',texHash);
 	texHash = TextureMap::requestTexture("P.bmp");
