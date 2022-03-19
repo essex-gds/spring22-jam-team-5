@@ -131,14 +131,12 @@ void Display::drawTileMap(tile_t* map)
 			// X
 			if (mCameraPtr->mSubX > (float) pixelsPerTileWidth)
 			{
-				printf("W-RIGHT\n");
 				mCameraPtr->mSubX -= (float) pixelsPerTileWidth;
 				mCameraPtr->mX++;
 			}
 
 			if (mCameraPtr->mSubX < 0 && mCameraPtr->mSubX < ( 1 - (float) pixelsPerTileWidth ))
 			{
-				printf("W-LEFT\n");
 				mCameraPtr->mSubX += (float) pixelsPerTileWidth;
 				mCameraPtr->mX--;
 			}
@@ -146,14 +144,12 @@ void Display::drawTileMap(tile_t* map)
 			// Y
 			if (mCameraPtr->mSubY > (float) pixelsPerTileHeight)
 			{
-				printf("W-DOWN\n");
 				mCameraPtr->mSubY -= (float) pixelsPerTileWidth;
 				mCameraPtr->mY++;
 			}
 
 			if (mCameraPtr->mSubY < 0 && mCameraPtr->mSubY < ( 1 - (float) pixelsPerTileHeight ))
 			{
-				printf("W-UP\n");
 				mCameraPtr->mSubY += (float) pixelsPerTileWidth;
 				mCameraPtr->mY--;
 			}

@@ -3,6 +3,7 @@
 
 #include "GameHandler.h"
 
+#include "TileMapEnum.h"
 #include "IState.h"
 #include "SpriteTransitionState.h"
 #include "TextChoiceState.h"

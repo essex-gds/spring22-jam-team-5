@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(StateBall* stateBallPtr)
-	: EntityWithHealth    (Sprite::create(PLAYER_TEXTURE,64,64,64,64))
+	: EntityWithHealth    (Sprite::create(TILE_PLAYER,64,64,64,64))
 {
 	mDisplayPtr = stateBallPtr->mDisplayPtr;
 	mDisplayPtr->addSprite(mSprite);

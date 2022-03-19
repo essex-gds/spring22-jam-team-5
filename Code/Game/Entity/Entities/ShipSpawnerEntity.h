@@ -22,7 +22,9 @@ struct ShipWave
 class ShipSpawnerEntity : public Entity
 {
 
+	virtual void update(StateBall *stateBallPtr, float dt, std::vector<Entity *> &fellows) override;
 
+	void addWave(ShipWave& wave);
 protected:
 	std::vector<ShipWave> mWaves;
 	double mTimeToNextWave;

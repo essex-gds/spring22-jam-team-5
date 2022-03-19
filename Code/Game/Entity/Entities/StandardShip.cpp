@@ -1,7 +1,7 @@
 #include "StandardShip.h"
 
 StandardShip::StandardShip(StateBall* stateBallPtr, double x, double y)
-	: EntityWithHealth(Sprite::create(PLAYER_TEXTURE,x,y,64,64))
+	: EntityWithHealth(Sprite::create(TILE_PLAYER,x,y,64,64))
 	,	mShootTimer(1.5,[&](IComponent*){
 		mCanShoot = true;
 		mShootTimer.reset();
