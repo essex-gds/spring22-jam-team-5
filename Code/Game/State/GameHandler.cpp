@@ -24,7 +24,6 @@ void GameHandler::enter()
 	TextureMap::init(&mDisplay);
 
 	// setup
-
 	mStateStack.push( new EntryState(&mDisplay) );
 
 	// game loop

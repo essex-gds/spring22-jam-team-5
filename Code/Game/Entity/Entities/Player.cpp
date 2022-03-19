@@ -1,9 +1,7 @@
 #include "Player.h"
 
-Player::Player(Display* displayPtr)
-	: Entity    ( (Sprite*) malloc(sizeof(Sprite) ) )
-	, mDisplayPtr  (displayPtr)
-
+Player::Player(StateBall* stateBallPtr)
+	: EntityWithHealth    (Sprite::create(TILE_PLAYER,64,64,64,64))
 {
 	mSprite->mTileIndex = PLAYER_TEXTURE;
 	mSprite->mWidth = 64;

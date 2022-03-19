@@ -19,6 +19,7 @@ void TestState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	stateBallPtr->mCameraPtr = &mCamera;
 	stateBallPtr->repack();
 
+	l->mTileMap[0] = TILE_CIRC;
 	memset(l->mOverMap,' ',l->mWidth * l->mHeight);
 	memset(l->mCharMap,' ',l->mWidth * l->mHeight);
 

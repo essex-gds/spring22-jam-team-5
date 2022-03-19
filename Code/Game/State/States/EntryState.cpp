@@ -19,10 +19,10 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	hash_t texHash;
 
 	texHash = TextureMap::requestTexture("Player.bmp");
-	mDisplayPtr->setTexture(PLAYER_TEXTURE,texHash);
+	mDisplayPtr->setTexture(TILE_PLAYER,texHash);
 
 	texHash =TextureMap::requestTexture("CIRC_TEXTURE.bmp");
-	stateBallPtr->mDisplayPtr->setTexture(CIRC_TEXTURE, texHash);
+	stateBallPtr->mDisplayPtr->setTexture(TILE_CIRC, texHash);
 
 	texHash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
 	stateBallPtr->mDisplayPtr->setTexture(3, texHash);
@@ -47,6 +47,8 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	mDisplayPtr->setTexture('I',texHash);
 	texHash = TextureMap::requestTexture("J.bmp");
 	mDisplayPtr->setTexture('J',texHash);
+	texHash = TextureMap::requestTexture("L.bmp");
+	mDisplayPtr->setTexture('L',texHash);
 	texHash = TextureMap::requestTexture("K.bmp");
 	mDisplayPtr->setTexture('K',texHash);
 	texHash = TextureMap::requestTexture("M.bmp");

@@ -1,7 +1,7 @@
 #include "Bullet.h"
 
-Bullet::Bullet(StateBall* stateBallPtr, double x, double y)
-	: Entity        ( (Sprite*)malloc( sizeof(Sprite) ) )
+Bullet::Bullet(StateBall* stateBallPtr, double x, double y, void* parent)
+	: Entity        (Sprite::create(TILE_CIRC, x, y, 16, 16))
 	, mStateBallPtr (stateBallPtr)
 	, mXDir         (0)
 	, mYDir         (0)
