@@ -2,6 +2,7 @@
 #define BAWL_ENTITY_H
 
 #include <vector>
+#include <cmath>
 
 #include "Display.h"
 #include "StateStack.h"

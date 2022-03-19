@@ -8,7 +8,34 @@ enum tileMap
 	PLAYER_TEXTURE  = 1,
 	CIRC_TEXTURE    = 2,
 
-	A = 'A'
+	/* RESERVED RANGE     */
+	A = 'A',
+	B,
+	C,
+	D,
+	E,
+	F,
+	G,
+	H,
+	I,
+	J,
+	K,
+	L,
+	M,
+	N,
+	O,
+	P,
+	Q,
+	R,
+	S,
+	T,
+	U,
+	V,
+	W,
+	X,
+	Y,
+	Z = 'Z'
+	/* END RESERVED RANGE */
 };
 
 #endif // BAWL_TILEMAPENUM_H

@@ -7,6 +7,8 @@ Entity::Entity(Sprite* sprite)
 	, mHeight     (sprite->mHeight)
 	, mSprite     (sprite)
 	, mComponents ()
+	, mXVelocity  (0)
+	, mYVelocity  (0)
 {}
 
 Entity::Entity(Sprite* sprite, double xVelocity, double yVelocity)
@@ -45,7 +47,17 @@ void Entity::removeComponent(IComponent* component)
 
 std::vector<Entity*> Entity::fellowsWithinRange(double x, double y, double range, std::vector<Entity*>& fellows)
 {
-	std::vector<Entity*> withinRange;
+	std::vector<Entity*> withinRange = fellows;
+
+	for(auto& e : fellows)
+	{
+		auto dist = std::sqrt( std::pow( e->mX - x, 2 ) + std::pow(e->mY - y, 2) );
+		if(dist > range)
+		{
+			withinRange.erase(std::remove(withinRange.begin(), withinRange.end(), e), withinRange.end() );
+		}
+	}
+
 	return withinRange;
 }
 
