@@ -14,11 +14,21 @@
 
 struct Sprite
 {
-	uint8_t mTileIndex;
-	double mX;
-	double mY;
-	double mWidth;
-	double mHeight;
+	static Sprite* create(uint8_t tileIndex, double x, double y, double width, double height);
+
+	static Sprite* create(uint8_t tileIndex);
+
+	uint8_t          mTileIndex;
+	double           mX;
+	double           mY;
+	double           mWidth;
+	double           mHeight;
+	double           mAngle;
+	SDL_RendererFlip mFlip;
+	uint8_t          mAlpha;
+	uint8_t          mRShift;
+	uint8_t          mBShift;
+	uint8_t          mGShift;
 };
 
 class Display
@@ -70,6 +80,14 @@ public:
 	int32_t getWidth();
 
 	int32_t getHeight();
+
+	uint64_t getTilesPerWidth();
+
+	uint64_t getTilesPerHeight();
+
+	uint64_t getTilesWidth();
+
+	uint64_t getTileHeight();
 
 protected:
 

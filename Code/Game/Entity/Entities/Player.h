@@ -6,16 +6,16 @@
 #include "GameHandler.h"
 
 #include "Entity.h"
+#include "EntityWithHealth.h"
 #include "Bullet.h"
 
 #include "Timer.h"
 
-class Player : public Entity
+class Player : public EntityWithHealth
 {
 public:
-	HAS_ID("PLAYER")
 
-	Player(Display* displayPtr);
+	Player(StateBall* stateBallPtr);
 
 	virtual ~Player() override;
 

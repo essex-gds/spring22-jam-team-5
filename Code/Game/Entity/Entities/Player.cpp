@@ -1,14 +1,9 @@
 #include "Player.h"
 
-Player::Player(Display* displayPtr)
-	: Entity    ( (Sprite*) malloc(sizeof(Sprite) ) )
-	, mDisplayPtr  (displayPtr)
-
+Player::Player(StateBall* stateBallPtr)
+	: EntityWithHealth    (Sprite::create(PLAYER_TEXTURE,64,64,64,64))
 {
-	mSprite->mTileIndex = PLAYER_TEXTURE;
-	mSprite->mWidth = 64;
-	mSprite->mHeight = 64;
-
+	mDisplayPtr = stateBallPtr->mDisplayPtr;
 	mDisplayPtr->addSprite(mSprite);
 
 	mVSpeed = 100;
@@ -20,6 +15,9 @@ Player::Player(Display* displayPtr)
 		mCanShoot = true;
 		mBulletTimer.reset();
 	});
+
+	setHealth(100);
+	setHealth(100);
 }
 
 Player::~Player()
@@ -30,14 +28,22 @@ Player::~Player()
 
 void Player::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fellows)
 {
+	stateBallPtr->mCameraPtr->mSubX += 12 * dt;
+
 	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_S])
 	{
-		mYVelocity += mVSpeed * dt;
+		if(mY + mHeight < stateBallPtr->mDisplayPtr->getHeight() - stateBallPtr->mDisplayPtr->getTileHeight())
+		{
+			mYVelocity += mVSpeed * dt;
+		}
 	}
 
 	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_W])
 	{
-		mYVelocity -= mVSpeed * dt;
+		if(mY - mHeight > stateBallPtr->mDisplayPtr->getTileHeight()) // can't go over the top 2 tiles
+		{
+			mYVelocity -= mVSpeed * dt;
+		}
 	}
 
 	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_A])
@@ -55,20 +61,20 @@ void Player::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 	{
 		mCanShoot = false;
 		double x = mX + mWidth;
-		double y= mY + mHeight/2;
+		double y= mY;
 
-		Bullet* bullet = new Bullet(stateBallPtr, x, y);
+		Bullet* bullet = new Bullet(stateBallPtr, x, y,this);
 		bullet->setXDir(1);
 		fellows.push_back(bullet);
 
 		if(mMultiShoot == 1)
 		{
-			bullet = new Bullet(stateBallPtr, x, y);
+			bullet = new Bullet(stateBallPtr, x, y,this);
 			bullet->setXDir(1);
 			bullet->setYDir(.25);
 			fellows.push_back(bullet);
 
-			bullet = new Bullet(stateBallPtr, x, y);
+			bullet = new Bullet(stateBallPtr, x, y,this);
 			bullet->setXDir(1);
 			bullet->setYDir(-.25);
 			fellows.push_back(bullet);
