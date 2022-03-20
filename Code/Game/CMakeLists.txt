@@ -43,6 +43,7 @@ set(BAWL_SRC
         Entity/Entities/RunnerShip.cpp
         Entity/Entities/FatShip.cpp
         Entity/Entities/BossShip.cpp
+        Entity/Entities/PlayerHeath.cpp
 
 
         Entity/Components/Timer.cpp

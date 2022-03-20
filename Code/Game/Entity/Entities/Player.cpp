@@ -19,6 +19,7 @@ Player::Player(StateBall* stateBallPtr)
 		mBulletTimer.reset();
 	});
 
+	mPlayerHealth = new PlayerHeath(stateBallPtr, this) ;
 }
 
 Player::~Player()
@@ -94,6 +95,7 @@ void Player::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 
 	mBulletTimer.update(*this, dt);
 
+	mPlayerHealth->update(stateBallPtr,dt,fellows);
 	Entity::update(stateBallPtr,dt, fellows);
 }
 

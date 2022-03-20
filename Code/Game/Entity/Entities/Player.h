@@ -7,10 +7,13 @@
 #include "GameState.h"
 
 #include "Entity.h"
+#include "PlayerHeath.h"
 #include "EntityWithHealth.h"
 #include "Bullet.h"
 
 #include "Timer.h"
+
+class PlayerHealth;
 
 class Player : public EntityWithHealth
 {
@@ -41,6 +44,7 @@ private:
 	bool     mCanShoot;
 	int      mMultiShoot;
 	Timer    mBulletTimer;
+	PlayerHeath* mPlayerHealth;
 };
 
 

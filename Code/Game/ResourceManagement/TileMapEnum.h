@@ -15,6 +15,7 @@ enum tileMap
 	TILE_DRONE,
 	TILE_BOSS,
 	TILE_CIRC,
+	TILE_BLUE,
 	/* RESERVED RANGE     */
 	TILE_A = 'A',
 	TILE_B,

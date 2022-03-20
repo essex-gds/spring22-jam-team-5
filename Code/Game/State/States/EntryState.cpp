@@ -39,6 +39,9 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	texHash =TextureMap::requestTexture("CIRC_TEXTURE.bmp");
 	stateBallPtr->mDisplayPtr->setTexture(TILE_CIRC, texHash);
 
+	texHash =TextureMap::requestTexture("blue.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(TILE_BLUE, texHash);
+
 
 	texHash = TextureMap::requestTexture("A.bmp");
 	mDisplayPtr->setTexture('A',texHash);
