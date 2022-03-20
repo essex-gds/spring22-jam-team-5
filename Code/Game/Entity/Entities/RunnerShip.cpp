@@ -49,5 +49,12 @@ void RunnerShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> 
 		fellows.push_back(bullet);
 	}
 
+	if(mX < 0 -32)
+	{
+		fellows.erase( std::remove(fellows.begin(), fellows.end(), this), fellows.end() );
+		delete this;
+		return;
+	}
+
 	EntityWithHealth::update(stateBallPtr, dt, fellows);
 }

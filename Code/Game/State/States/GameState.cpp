@@ -66,6 +66,28 @@ inline static auto singleGroup =
 		                   SHIP_NONE,
 	                   };
 
+inline static auto highGroup =
+	                   std::vector{
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_STANDARD,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_STANDARD,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+	                   };
+
 inline static auto doubleGroup =
 	                   std::vector{
 		                   SHIP_NONE,
@@ -264,9 +286,33 @@ inline static auto bossGroup =
 		                   SHIP_NONE,
 	                   };
 
+inline static auto endGroup =
+	                   std::vector{
+		                   SHIP_END,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+	                   };
+
 
 void GameState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 {
+	initAudio();
+	playMusic("../../../Assets/tune.wav",100);
 	/////////////
 	/// SETUP ///
 	/////////////
@@ -295,17 +341,15 @@ void GameState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	/////////////
 
 	auto* wav = new ShipWave();
-	wav->mShipsToSpawn = bossGroup;
-	wav->mTimeToNextWave = 4;
-	spawner->addWave(wav);
-/*
+
+
 	wav = new ShipWave();
 	wav->mShipsToSpawn = singleGroup;
 	wav->mTimeToNextWave = 4;
 	spawner->addWave(wav);
 
 	wav = new ShipWave();
-	wav->mShipsToSpawn = wideSeekGroup;
+	wav->mShipsToSpawn = topGroup;
 	wav->mTimeToNextWave = 4;
 	spawner->addWave(wav);
 
@@ -313,11 +357,77 @@ void GameState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	wav->mShipsToSpawn = wideSeekGroup;
 	wav->mTimeToNextWave = 4;
 	spawner->addWave(wav);
- */
 
-	initAudio();
-	playMusic("../../../Assets/test.wav",100);
+	wav = new ShipWave();
+	wav->mShipsToSpawn = bomberGroup;
+	wav->mTimeToNextWave = 10;
+	spawner->addWave(wav);
 
+	wav = new ShipWave();
+	wav->mShipsToSpawn = wingGroup;
+	wav->mTimeToNextWave = 8;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = bossGroup;
+	wav->mTimeToNextWave = 4;
+	spawner->addWave(wav);
+
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = runnerGroup;
+	wav->mTimeToNextWave = 4;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = runnerGroup;
+	wav->mTimeToNextWave = 8;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = doubleGroup;
+	wav->mTimeToNextWave = 8;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = seekGroup;
+	wav->mTimeToNextWave = 8;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = highGroup;
+	wav->mTimeToNextWave = 8;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = highGroup;
+	wav->mTimeToNextWave = 8;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = wingGroup;
+	wav->mTimeToNextWave = 12;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = runnerGroup;
+	wav->mTimeToNextWave = 4;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = topGroup;
+	wav->mTimeToNextWave = 1;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = seekGroup;
+	wav->mTimeToNextWave = 4;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = endGroup;
+	wav->mTimeToNextWave = 4;
+	spawner->addWave(wav);
 
 }
 
@@ -335,11 +445,12 @@ void GameState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 		mCamera.mSubX = 0;
 		auto* message = NString::create("LIBERATION");
 		auto* opts    = new std::vector<NString*>();
+		opts->push_back(NString::create(" ? "));
 		opts->push_back(NString::create(" IN WAR THERE IS NO PLAY AGAIN "));
 
 		auto* menu = new TextChoiceState(0, 0, message, *opts, 0, [opts, stack](auto i, auto dir)
 		{
-			if (i == 0)
+			if (i == 1)
 			{
 				::exit(0);
 			}
@@ -347,4 +458,26 @@ void GameState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 
 		stack->push(menu);
 	}
+
+	{
+		if(sGameWin)
+		{
+			mCamera.mX = 0;
+			mCamera.mY = 0;
+			mCamera.mSubX = 0;
+			auto* message = NString::create("LIBERATION");
+			auto* opts    = new std::vector<NString*>();
+			opts->push_back(NString::create(" ? "));
+			opts->push_back(NString::create(" IN WAR THERE IS NO PLAY AGAIN "));
+
+			auto* menu = new TextChoiceState(0, 0, message, *opts, 0, [opts, stack](auto i, auto dir)
+			{
+				if (i == 1)
+				{
+					::exit(0);
+				}
+			});
+
+			stack->push(menu);
+		}
 }

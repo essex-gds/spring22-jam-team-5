@@ -64,6 +64,7 @@ void Bullet::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 			ent->setHealth(ent->getHealth() - mDMG);
 			fellows.erase( std::remove(fellows.begin(), fellows.end(), this), fellows.end() );
 			delete this;
+			return;
 		}
 	}
 }

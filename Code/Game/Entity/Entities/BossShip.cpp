@@ -7,7 +7,7 @@ BossShip::BossShip(StateBall* stateBallPtr, double x, double y)
 	mDisplayPtr->addSprite(mSprite);
 	phase = PHASE_ROT;
 
-	mHealth = 40;
+	mHealth = 100;
 	mYVelocity = 0;
 	mXVelocity = -0;
 

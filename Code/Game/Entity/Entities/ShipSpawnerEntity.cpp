@@ -32,6 +32,10 @@ void ShipSpawnerEntity::update(StateBall* stateBallPtr, float dt, std::vector<En
 						fellows.push_back(new BossShip(stateBallPtr, x,y));
 						break;
 
+					case SHIP_END:
+						fellows.erase(std::remove(fellows.begin(), fellows.end(), this),fellows.end());
+						delete this;
+
 					case SHIP_NONE:
 					default:
 						break;
