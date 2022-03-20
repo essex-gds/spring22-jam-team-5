@@ -33,10 +33,17 @@ set(BAWL_SRC
         State/States/GameState.cpp
 
         Entity/Entity.cpp
+        Entity/Entities/EntityWithHealth.h
         Entity/Entities/Player.cpp
         Entity/Entities/Bullet.cpp
+        Entity/Entities/ShipSpawnerEntity.cpp
+        Entity/Entities/StandardShip.cpp
+        Entity/Entities/SeekerShip.cpp
+        Entity/Entities/bossShip.cpp
 
         Entity/Components/Timer.cpp
+        Entity/Components/ColourShift.cpp
+        Entity/Components/Pointer.cpp
         )
 
 include_directories(

@@ -2,6 +2,7 @@
 #define BAWL_ENTITY_H
 
 #include <vector>
+#include <math.h>
 
 #include "Display.h"
 #include "StateStack.h"
@@ -12,6 +13,11 @@ class Entity
 public:
 
 	HAS_ID("BASE---");
+
+	/***
+	 * Super dangerous do not use unless you have to and remember to set sprite ASAP
+	 */
+	Entity();
 
 	Entity(Sprite* sprite);
 
@@ -24,6 +30,12 @@ public:
 	virtual void addComponent(IComponent* component);
 
 	virtual void removeComponent(IComponent* component);
+
+	virtual Sprite* getSprite();
+
+	virtual double getX();
+
+	virtual double getY();
 
 	static std::vector<Entity*> fellowsWithinRange(double x, double y, double range, std::vector<Entity*>& fellows);
 

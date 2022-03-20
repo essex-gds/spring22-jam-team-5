@@ -3,6 +3,10 @@
 
 #include "IState.h"
 
+#include "TextChoiceState.h"
+
+#include "GameState.h"
+
 class MainMenuState : public IState
 {
 public:
@@ -14,6 +18,10 @@ public:
 	virtual void tick(  StateStack* stack,  StateBall* stateBallPtr, float dt    ) override;
 
 	inline virtual bool isTransparent() { return false; }
+
+protected:
+	Level* mLevel;
+	Camera mCamera;
 };
 
 

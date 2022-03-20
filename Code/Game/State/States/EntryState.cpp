@@ -18,14 +18,21 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 
 	hash_t texHash;
 
-	texHash = TextureMap::requestTexture("Player.bmp");
+	texHash = TextureMap::requestTexture("player_idle.bmp");
 	mDisplayPtr->setTexture(TILE_PLAYER,texHash);
+	texHash =TextureMap::requestTexture("player_up.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(TILE_PLAYER_UP, texHash);
+	texHash =TextureMap::requestTexture("player_down.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(TILE_PLAYER_DOWN, texHash);
+
+	texHash =TextureMap::requestTexture("seeker_active1.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(TILE_SEEKER, texHash);
+	texHash =TextureMap::requestTexture("seeker_active2.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(TILE_SEEKER_ACTIVE, texHash);
 
 	texHash =TextureMap::requestTexture("CIRC_TEXTURE.bmp");
 	stateBallPtr->mDisplayPtr->setTexture(TILE_CIRC, texHash);
 
-	texHash =TextureMap::requestTexture("TEST_TEXTURE.bmp");
-	stateBallPtr->mDisplayPtr->setTexture(3, texHash);
 
 	texHash = TextureMap::requestTexture("A.bmp");
 	mDisplayPtr->setTexture('A',texHash);
@@ -94,7 +101,7 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 void EntryState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)
 {
 	GLOG_INFO("EntryState popped");
-	stack->push(new TestState());
+	stack->push(new MainMenuState());
 }
 
 void EntryState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)

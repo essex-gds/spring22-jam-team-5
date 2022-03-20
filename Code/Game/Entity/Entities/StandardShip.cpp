@@ -11,8 +11,10 @@ StandardShip::StandardShip(StateBall* stateBallPtr, double x, double y)
 	mDisplayPtr = stateBallPtr->mDisplayPtr;
 	mDisplayPtr->addSprite(mSprite);
 	setHealth(2);
+	mSprite->mGShift = 220;
+	mSprite->mRShift = 220;
 
-	mXVelocity = -0.3       ;
+	mXVelocity = -0.3;
 }
 
 StandardShip::~StandardShip()
@@ -23,7 +25,6 @@ StandardShip::~StandardShip()
 
 void StandardShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fellows)
 {
-	Entity::update(stateBallPtr, dt, fellows);
 	mShootTimer.update(*this, dt);
 
 	if(mCanShoot)
@@ -34,9 +35,10 @@ void StandardShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*
 		fellows.push_back(b);
 	}
 
-	if(mHealth < 1)
+	if(mX < -32)
 	{
-		fellows.erase(std::remove(fellows.begin(), fellows.end(), this), fellows.end());
-		delete this;
+		mX = stateBallPtr->mDisplayPtr->getWidth() + 32;
 	}
+
+	EntityWithHealth::update(stateBallPtr,dt,fellows);
 }

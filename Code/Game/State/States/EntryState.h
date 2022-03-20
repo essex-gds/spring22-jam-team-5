@@ -6,7 +6,7 @@
 #include "TileMapEnum.h"
 #include "Display.h"
 #include "IState.h"
-#include "TestState.h"
+#include "MainMenuState.h"
 
 class EntryState : public IState
 {

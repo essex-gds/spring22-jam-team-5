@@ -1,18 +1,14 @@
 #include "Bullet.h"
 
-Bullet::Bullet(StateBall* stateBallPtr, double x, double y, void* parent)
+Bullet::Bullet(StateBall* stateBallPtr, double x, double y, Entity* parent)
 	: Entity        (Sprite::create(TILE_CIRC, x, y, 16, 16))
 	, mStateBallPtr (stateBallPtr)
 	, mXDir         (0)
 	, mYDir         (0)
+	, mParent       (parent)
+	, mDMG          (1)
 {
-	mSprite->mTileIndex = tileMap::CIRC_TEXTURE;
-	mSprite->mX = x;
-	mSprite->mY = y;
-	mSprite->mWidth = 16;
-	mSprite->mHeight= 16;
 	mStateBallPtr->mDisplayPtr->addSprite(mSprite);
-
 }
 
 Bullet::~Bullet()
@@ -28,12 +24,37 @@ void Bullet::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 	Entity::update(stateBallPtr, dt, fellows);
 
 	// delete when it goes of screen
-
 	if (  mX > stateBallPtr->mDisplayPtr->getWidth()
-	   && mY > stateBallPtr->mDisplayPtr->getHeight() )
+	   || mY > stateBallPtr->mDisplayPtr->getHeight()
+	   || mX < 0
+	   || mY < 0
+	   )
 	{
 		fellows.erase(std::remove(fellows.begin(), fellows.end(), this), fellows.end());
 		delete this;
+		return;
+	}
+
+	auto withInRange = Entity::fellowsWithinRange(mX,mY, 32, fellows);
+
+	withInRange.erase(std::remove(withInRange.begin(), withInRange.end(), this), withInRange.end());
+	withInRange.erase(std::remove(withInRange.begin(), withInRange.end(), mParent), withInRange.end());
+
+	for(auto& e : withInRange)
+	{
+
+		if(
+			Entity::cmpID(e->getID(),EntityWithHealth::mID)
+		        || Entity::cmpID(e->getID(), Player::mID)
+		        || Entity::cmpID(e->getID(), StandardShip::mID)
+		        || Entity::cmpID(e->getID(), SeekerShip::mID)
+		  )
+		{
+			EntityWithHealth* ent = static_cast<EntityWithHealth*>(e);
+			ent->setHealth(ent->getHealth() - mDMG);
+			fellows.erase( std::remove(fellows.begin(), fellows.end(), this), fellows.end() );
+			delete this;
+		}
 	}
 }
 

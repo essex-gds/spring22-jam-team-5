@@ -11,7 +11,8 @@
 
 #include "Entity.h"
 #include "Player.h"
-
+#include "StandardShip.h"
+#include "ShipSpawnerEntity.h"
 
 class TestState : public IState
 {
