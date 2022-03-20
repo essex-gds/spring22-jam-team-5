@@ -244,24 +244,24 @@ inline static auto topGroup =
 
 inline static auto bottomGroup =
 	                   std::vector{
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
 		                   SHIP_RUNNER,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
-		                   SHIP_NONE,
 	                   };
 
 inline static auto bossGroup =
@@ -423,6 +423,29 @@ void GameState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	wav->mShipsToSpawn = seekGroup;
 	wav->mTimeToNextWave = 4;
 	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = wingGroup;
+	wav->mTimeToNextWave = 1;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = bottomGroup;
+	wav->mTimeToNextWave = 14;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = wideSeekGroup;
+	wav->mTimeToNextWave = 7;
+	spawner->addWave(wav);
+
+	wav = new ShipWave();
+	wav->mShipsToSpawn = tripleGroup;
+	wav->mTimeToNextWave = 1;
+	spawner->addWave(wav);
+
+
+
 
 	wav = new ShipWave();
 	wav->mShipsToSpawn = endGroup;

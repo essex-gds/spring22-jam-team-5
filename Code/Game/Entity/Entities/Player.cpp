@@ -4,7 +4,7 @@ Player::Player(StateBall* stateBallPtr)
 	: EntityWithHealth    (Sprite::create(TILE_PLAYER,64,64,64,32))
 {
 
-	mHealth = 100;
+	mHealth = 25;
 
 	mDisplayPtr = stateBallPtr->mDisplayPtr;
 	mDisplayPtr->addSprite(mSprite);

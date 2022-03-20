@@ -18,6 +18,7 @@
 class BossShip : public EntityWithHealth
 {
 public:
+
 	BossShip(StateBall* stateBallPtr, double x, double y);
 
 	~BossShip();
