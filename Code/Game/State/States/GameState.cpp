@@ -175,6 +175,28 @@ inline static auto wideSeekGroup =
 		                   SHIP_NONE,
 	                   };
 
+inline static auto bossGroup =
+	                   std::vector{
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_BOSS,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+	                   };
+
 
 void GameState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 {
@@ -192,9 +214,6 @@ void GameState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	stateBallPtr->mCameraPtr = &mCamera;
 	stateBallPtr->repack();
 
-	mLevel->mTileMap[0] = TILE_CIRC;
-	mLevel->mTileMap[1] = TILE_CIRC;
-	mLevel->mTileMap[2] = TILE_CIRC;
 	memset(mLevel->mOverMap,' ',mLevel->mWidth * mLevel->mHeight);
 	memset(mLevel->mCharMap,' ',mLevel->mWidth * mLevel->mHeight);
 
@@ -209,10 +228,10 @@ void GameState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	/////////////
 
 	auto* wav = new ShipWave();
-	wav->mShipsToSpawn = blankGroup;
+	wav->mShipsToSpawn = bossGroup;
 	wav->mTimeToNextWave = 4;
 	spawner->addWave(wav);
-
+/*
 	wav = new ShipWave();
 	wav->mShipsToSpawn = singleGroup;
 	wav->mTimeToNextWave = 4;
@@ -227,6 +246,7 @@ void GameState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	wav->mShipsToSpawn = wideSeekGroup;
 	wav->mTimeToNextWave = 4;
 	spawner->addWave(wav);
+ */
 
 }
 
@@ -237,5 +257,23 @@ void GameState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)
 
 void GameState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 {
+	if(sGameOver)
+	{
+		mCamera.mX = 0;
+		mCamera.mY = 0;
+		mCamera.mSubX = 0;
+		auto* message = NString::create("LIBERATION");
+		auto* opts    = new std::vector<NString*>();
+		opts->push_back(NString::create(" IN WAR THERE IS NO PLAY AGAIN "));
 
+		auto* menu = new TextChoiceState(0, 0, message, *opts, 0, [opts, stack](auto i, auto dir)
+		{
+			if (i == 0)
+			{
+				::exit(0);
+			}
+		});
+
+		stack->push(menu);
+	}
 }

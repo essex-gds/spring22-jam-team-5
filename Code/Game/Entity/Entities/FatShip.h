@@ -2,7 +2,7 @@
 #define BAWL_FATSHIP_H
 
 
-class fatShip
+class FatShip
 {
 
 };

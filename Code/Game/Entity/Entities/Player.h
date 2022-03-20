@@ -4,6 +4,7 @@
 #include "TileMapEnum.h"
 
 #include "GameHandler.h"
+#include "GameState.h"
 
 #include "Entity.h"
 #include "EntityWithHealth.h"

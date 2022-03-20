@@ -30,6 +30,9 @@ void EntryState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	texHash =TextureMap::requestTexture("seeker_active2.bmp");
 	stateBallPtr->mDisplayPtr->setTexture(TILE_SEEKER_ACTIVE, texHash);
 
+	texHash =TextureMap::requestTexture("boss.bmp");
+	stateBallPtr->mDisplayPtr->setTexture(TILE_BOSS, texHash);
+
 	texHash =TextureMap::requestTexture("CIRC_TEXTURE.bmp");
 	stateBallPtr->mDisplayPtr->setTexture(TILE_CIRC, texHash);
 

@@ -3,6 +3,9 @@
 Player::Player(StateBall* stateBallPtr)
 	: EntityWithHealth    (Sprite::create(TILE_PLAYER,64,64,64,32))
 {
+
+	mHealth = 100;
+
 	mDisplayPtr = stateBallPtr->mDisplayPtr;
 	mDisplayPtr->addSprite(mSprite);
 
@@ -16,8 +19,6 @@ Player::Player(StateBall* stateBallPtr)
 		mBulletTimer.reset();
 	});
 
-	setHealth(100);
-	setHealth(100);
 }
 
 Player::~Player()
@@ -28,6 +29,13 @@ Player::~Player()
 
 void Player::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fellows)
 {
+	if(mHealth < 0)
+	{
+		mDisplayPtr->removeSprite(mSprite);
+		GameState::gameOver();
+
+		fellows.erase(std::remove(fellows.begin(), fellows.end(), this), fellows.end());
+	}
 	stateBallPtr->mCameraPtr->mSubX += 64 * dt;
 
 	if(GameHandler::getControlState()->mKeyboardHeld[SDL_SCANCODE_S])

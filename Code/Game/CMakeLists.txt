@@ -39,7 +39,10 @@ set(BAWL_SRC
         Entity/Entities/ShipSpawnerEntity.cpp
         Entity/Entities/StandardShip.cpp
         Entity/Entities/SeekerShip.cpp
-        Entity/Entities/bossShip.cpp
+        Entity/Entities/RunnerShip.cpp
+        Entity/Entities/FatShip.cpp
+        Entity/Entities/BossShip.cpp
+
 
         Entity/Components/Timer.cpp
         Entity/Components/ColourShift.cpp

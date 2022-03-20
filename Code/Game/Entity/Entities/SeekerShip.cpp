@@ -47,5 +47,23 @@ void SeekerShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> 
 		mSprite->mAngle = mPlayerPoint.getAngle();
 	}
 
+	fels = Entity::fellowsWithinRange(mX,mY,mSprite->mWidth, fellows);
+	fels.erase(std::remove(fels.begin(), fels.end(), this), fels.end());
+	if(!fels.empty())
+	{
+		for(auto e : fels)
+		{
+			if(Entity::cmpID(e->getID(), Player::mID))
+			{
+				auto player = (EntityWithHealth*) e;
+				player->setHealth(player->getHealth() - 3);
+				fellows.erase(std::remove(fellows.begin(), fellows.end(), this), fellows.end());
+				delete this;
+				return;
+			}
+		}
+	}
+
+
 	EntityWithHealth::update(stateBallPtr, dt, fellows);
 }

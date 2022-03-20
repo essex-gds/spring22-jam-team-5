@@ -7,7 +7,9 @@
 #include "Entity.h"
 #include "StandardShip.h"
 #include "SeekerShip.h"
-
+#include "RunnerShip.h"
+#include "FatShip.h"
+#include "BossShip.h"
 
 enum ShipKind
 {
