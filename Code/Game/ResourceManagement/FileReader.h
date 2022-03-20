@@ -13,4 +13,6 @@
 
 SDL_Surface* readTexture(const char* fName);
 
+
+
 #endif //BAWL_FILEREADER_H

@@ -30,5 +30,7 @@ protected:
 	double     mDMG;
 	Entity*      mParent;
 	StateBall* mStateBallPtr;
+
+	bool bad;
 };
 #endif // BAWL_BULLET_H

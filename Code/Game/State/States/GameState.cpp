@@ -175,6 +175,73 @@ inline static auto wideSeekGroup =
 		                   SHIP_NONE,
 	                   };
 
+inline static auto runnerGroup =
+	                   std::vector{
+		                   SHIP_RUNNER,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_RUNNER,
+	                   };
+
+inline static auto topGroup =
+	                   std::vector{
+		                   SHIP_RUNNER,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+	                   };
+
+
+inline static auto bottomGroup =
+	                   std::vector{
+		                   SHIP_RUNNER,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+		                   SHIP_NONE,
+	                   };
+
 inline static auto bossGroup =
 	                   std::vector{
 		                   SHIP_NONE,
@@ -247,6 +314,10 @@ void GameState::enter(StateStack* stack, StateBall* stateBallPtr, IState* from)
 	wav->mTimeToNextWave = 4;
 	spawner->addWave(wav);
  */
+
+	initAudio();
+	playMusic("../../../Assets/test.wav",100);
+
 
 }
 

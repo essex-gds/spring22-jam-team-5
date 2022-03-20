@@ -9,6 +9,15 @@ Bullet::Bullet(StateBall* stateBallPtr, double x, double y, Entity* parent)
 	, mDMG          (1)
 {
 	mStateBallPtr->mDisplayPtr->addSprite(mSprite);
+
+	if(Entity::cmpID(parent->getID(), StandardShip::mID))
+	{
+		bad = true;
+	}
+	else
+	{
+		bad = false;
+	}
 }
 
 Bullet::~Bullet()
@@ -45,9 +54,10 @@ void Bullet::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 
 		if(
 			Entity::cmpID(e->getID(),EntityWithHealth::mID)
-		        || Entity::cmpID(e->getID(), Player::mID)
-		        || Entity::cmpID(e->getID(), StandardShip::mID)
-		        || Entity::cmpID(e->getID(), SeekerShip::mID)
+		        || (Entity::cmpID(e->getID(), Player::mID) && bad)
+		        || (Entity::cmpID(e->getID(), StandardShip::mID) && !bad)
+		        || (Entity::cmpID(e->getID(), SeekerShip::mID)&& !bad)
+		        || (Entity::cmpID(e->getID(), RunnerShip::mID)&& !bad)
 		  )
 		{
 			EntityWithHealth* ent = static_cast<EntityWithHealth*>(e);

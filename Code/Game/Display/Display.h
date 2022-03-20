@@ -31,6 +31,19 @@ struct Sprite
 	uint8_t          mGShift;
 };
 
+struct Sound
+{
+	static struct Sound* create(const char* path);
+
+	Uint32 wav_length;
+	Uint8 *wav_buffer;
+	SDL_AudioSpec wav_spec;
+};
+
+// variable declarations
+static Uint8 *audio_pos; // global pointer to the audio buffer to be played
+static Uint32 audio_len; // remaining length of the sample we have to play
+
 class Display
 {
 public:
@@ -69,6 +82,7 @@ public:
 
 	void removeOverSprite( Sprite* s );
 
+
 	SDL_Renderer* getRenderer();
 
 	void setLevel(Level*  levelPtr);
@@ -88,6 +102,8 @@ public:
 	uint64_t getTilesWidth();
 
 	uint64_t getTileHeight();
+
+	static void loadAudioData(void *userdata, Uint8 *stream, int len);
 
 protected:
 
@@ -109,6 +125,5 @@ protected:
 	std::vector<Sprite*> mOverSprites;
 
 };
-
 
 #endif // BAWL_DISPLAY_H

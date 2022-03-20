@@ -17,6 +17,7 @@ set(BAWL_SRC
         Sys/NString.cpp
         Level/Level.cpp
         Display/Display.cpp
+        Display/Audio.cpp
         Display/Camera.cpp
         ResourceManagement/TextureMap.cpp
         ResourceManagement/FileReader.cpp

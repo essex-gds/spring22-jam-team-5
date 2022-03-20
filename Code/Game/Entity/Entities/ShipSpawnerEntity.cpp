@@ -24,6 +24,10 @@ void ShipSpawnerEntity::update(StateBall* stateBallPtr, float dt, std::vector<En
 						fellows.push_back(new SeekerShip(stateBallPtr,x,y));
 						break;
 
+					case SHIP_RUNNER:
+						fellows.push_back(new RunnerShip(stateBallPtr, x, y));
+						break;
+
 					case SHIP_BOSS:
 						fellows.push_back(new BossShip(stateBallPtr, x,y));
 						break;

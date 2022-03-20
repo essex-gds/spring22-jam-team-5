@@ -30,11 +30,9 @@ void BossShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &f
 	if(mX < - 100)
 	{
 		float rad = (float)rand() / (float)INT32_MAX;
-		GLOG_INFO("%f", rad);
 		mX = mDisplayPtr->getWidth() + 100;
 		mY =  mDisplayPtr->getHeight() * rad;
 	}
-
 
 	auto x = mX;
 	auto y = mY;
@@ -46,7 +44,6 @@ void BossShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &f
 	switch (phase)
 	{
 		case PHASE_NORM:
-		GLOG_INFO("BOSS - NORM");
 			switch (pick)
 			{
 				case 1:
@@ -79,7 +76,6 @@ void BossShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &f
 			break;
 
 		case PHASE_ROT:
-		GLOG_INFO("BOSS - ROT");
 			if(mSprite->mAngle + 90 > 0)
 			{
 				mSprite->mAngle -= dt * 35;
@@ -97,7 +93,6 @@ void BossShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &f
 			break;
 
 		case PHASE_UNROT:
-		GLOG_INFO("BOSS - UROT");
 			if(mSprite->mAngle < 0)
 			{
 				mSprite->mAngle += dt * 35;
@@ -110,7 +105,6 @@ void BossShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &f
 			break;
 
 		case PHASE_SHOOT:
-		GLOG_INFO("BOSS - SHOOT");
 			mBulletTimer.update(*this,dt);
 
 			if(mCanShoot)
@@ -147,7 +141,6 @@ void BossShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &f
 			break;
 
 		case PHASE_MEGA_SHOOT:
-		GLOG_INFO("BOSS - MEGA_SHOOT");
 			mBulletTimer.update(*this, dt);
 
 			if(mCanShoot)
@@ -207,7 +200,6 @@ void BossShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &f
 			break;
 
 		case PHASE_SPAWN:
-		GLOG_INFO("BOSS - SPAWN");
 			phase = PHASE_SPAWN_DONE;
 			fellows.push_back( new SeekerShip(stateBallPtr, mX,mY - mSprite->mHeight/2));
 			fellows.push_back( new SeekerShip(stateBallPtr, mX,mY + mSprite->mHeight/2));

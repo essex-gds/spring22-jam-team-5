@@ -24,6 +24,36 @@ Sprite* Sprite::create(uint8_t tileIndex)
 	return create(tileIndex, 0, 0, 32, 32);
 }
 
+struct Sound* Sound::create(const char* path)
+{
+	auto ret = (Sound*) malloc(sizeof(Sound));
+
+	auto res = SDL_LoadWAV(path,&ret->wav_spec,&ret->wav_buffer,&ret->wav_length);
+
+	ret->wav_spec.callback = Display::loadAudioData;
+	ret->wav_spec.userdata = nullptr;
+	// set our global static variables
+	audio_pos = ret->wav_buffer;
+	audio_len = ret->wav_length;
+
+	/* Open the audio device */
+	if ( SDL_OpenAudio(&ret->wav_spec, NULL) < 0 ){
+		fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
+		exit(-1);
+	}
+
+	/* Start playing */
+	SDL_PauseAudio(0);
+
+
+	// wait until we're don't playing
+	while ( audio_len > 0 ) {
+		SDL_Delay(100);
+	}
+
+	return ret;
+}
+
 Display::Display()
 {
 	mLevelPtr  = nullptr;
@@ -48,7 +78,7 @@ Display::~Display()
 
 int Display::init()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		GLOG_INFO("Couldn't initialize SDL video: %s\n",SDL_GetError());
 	}
@@ -304,4 +334,16 @@ uint64_t Display::getTilesWidth()
 uint64_t Display::getTileHeight()
 {
 	return mWindowHeight / mCameraPtr->mHeight;
+}
+
+void Display::loadAudioData(void* userdata, Uint8* stream, int len)
+{
+	if (audio_len ==0)
+		return;
+
+	len = ( len > audio_len ? audio_len : len );
+	SDL_MixAudio(stream, audio_pos, len, SDL_MIX_MAXVOLUME);
+
+	audio_pos += len;
+	audio_len -= len;
 }

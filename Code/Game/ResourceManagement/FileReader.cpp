@@ -1,7 +1,3 @@
-//
-// Created by talldie on 11/02/2022.
-//
-
 #include "FileReader.h"
 
 SDL_Surface* readTexture(const char* fName)

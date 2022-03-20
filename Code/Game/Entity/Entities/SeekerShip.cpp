@@ -8,7 +8,7 @@ SeekerShip::SeekerShip(StateBall* stateBallPtr, double x, double y)
 	: EntityWithHealth(Sprite::create(TILE_SEEKER, x,y,32,64))
 {
 	mSeeking = false;
-	mHealth = 3;
+	mHealth = 4;
 	mDisplayPtr = stateBallPtr->mDisplayPtr;
 	mDisplayPtr->addSprite(mSprite);
 

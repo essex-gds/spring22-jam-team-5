@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "Audio.h"
 #include "TileMapEnum.h"
 
 #include "IState.h"
