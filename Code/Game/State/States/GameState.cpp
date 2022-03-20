@@ -438,12 +438,12 @@ void GameState::exit(StateStack* stack, StateBall* stateBallPtr, IState* to)
 
 void GameState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 {
-	if(sGameOver)
+	if (sGameOver)
 	{
-		mCamera.mX = 0;
-		mCamera.mY = 0;
+		mCamera.mX    = 0;
+		mCamera.mY    = 0;
 		mCamera.mSubX = 0;
-		auto* message = NString::create("LIBERATION");
+		auto* message = NString::create("YOU LOSE");
 		auto* opts    = new std::vector<NString*>();
 		opts->push_back(NString::create(" ? "));
 		opts->push_back(NString::create(" IN WAR THERE IS NO PLAY AGAIN "));
@@ -459,25 +459,24 @@ void GameState::tick(StateStack* stack, StateBall* stateBallPtr, float dt)
 		stack->push(menu);
 	}
 
+	if (sGameWin)
 	{
-		if(sGameWin)
+		mCamera.mX    = 0;
+		mCamera.mY    = 0;
+		mCamera.mSubX = 0;
+		auto* message = NString::create("YOU WON");
+		auto* opts    = new std::vector<NString*>();
+		opts->push_back(NString::create(" YAY "));
+		opts->push_back(NString::create(" BYE! "));
+
+		auto* menu = new TextChoiceState(0, 0, message, *opts, 0, [opts, stack](auto i, auto dir)
 		{
-			mCamera.mX = 0;
-			mCamera.mY = 0;
-			mCamera.mSubX = 0;
-			auto* message = NString::create("LIBERATION");
-			auto* opts    = new std::vector<NString*>();
-			opts->push_back(NString::create(" ? "));
-			opts->push_back(NString::create(" IN WAR THERE IS NO PLAY AGAIN "));
-
-			auto* menu = new TextChoiceState(0, 0, message, *opts, 0, [opts, stack](auto i, auto dir)
+			if (i == 1)
 			{
-				if (i == 1)
-				{
-					::exit(0);
-				}
-			});
+				::exit(0);
+			}
+		});
 
-			stack->push(menu);
-		}
+		stack->push(menu);
+	}
 }
