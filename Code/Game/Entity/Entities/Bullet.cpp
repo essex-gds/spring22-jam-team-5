@@ -56,8 +56,9 @@ void Bullet::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 			Entity::cmpID(e->getID(),EntityWithHealth::mID)
 		        || (Entity::cmpID(e->getID(), Player::mID) && bad)
 		        || (Entity::cmpID(e->getID(), StandardShip::mID) && !bad)
-		        || (Entity::cmpID(e->getID(), SeekerShip::mID)&& !bad)
-		        || (Entity::cmpID(e->getID(), RunnerShip::mID)&& !bad)
+		        || (Entity::cmpID(e->getID(), SeekerShip::mID)   && !bad)
+		        || (Entity::cmpID(e->getID(), RunnerShip::mID)   && !bad)
+			|| (Entity::cmpID(e->getID(), BossShip::mID)     && !bad)
 		  )
 		{
 			EntityWithHealth* ent = static_cast<EntityWithHealth*>(e);

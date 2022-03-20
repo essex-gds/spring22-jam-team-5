@@ -11,13 +11,15 @@ class Player;
 class PlayerHeath : public Entity
 {
 public:
-	PlayerHeath(StateBall* stateBallPtr, EntityWithHealth* player);
+	HAS_ID("PLAYER")
+	PlayerHeath(StateBall* stateBallPtr, Player* player);
 	~PlayerHeath();
 
 	void update(StateBall *stateBallPtr, float dt, std::vector<Entity *> &fellows) override;
 
 protected:
-	EntityWithHealth* mPlayer;
+	Player* mPlayer;
+	double mStartingWidth;
 };
 
 

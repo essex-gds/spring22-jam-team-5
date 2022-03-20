@@ -14,7 +14,7 @@ void MainMenuState::enter(StateStack* stack, StateBall* stateBallPtr, IState* fr
 
 	memset(mLevel->mOverMap,' ',mLevel->mWidth * mLevel->mHeight);
 	memset(mLevel->mCharMap,' ',mLevel->mWidth * mLevel->mHeight);
-	auto* message = NString::create("LIBERATION");
+	auto* message = NString::create("LIBERATION \n\n\n WASD \n ARROW KEYS \n SPACE \n YOUR A SMART GUY \n IM SURE YOU CAN FIGURE IT OUT");
 
 	auto* opts = new std::vector<NString*>();
 	opts->push_back( NString::create(" PLAY ") );
@@ -27,6 +27,11 @@ void MainMenuState::enter(StateStack* stack, StateBall* stateBallPtr, IState* fr
 		{
 			free(opts);
 			stack->push(new GameState());
+		}
+
+		if(i == 1)
+		{
+			::exit(0);
 		}
 	});
 

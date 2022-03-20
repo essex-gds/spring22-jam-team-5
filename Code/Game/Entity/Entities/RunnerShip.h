@@ -13,7 +13,7 @@
 class RunnerShip : public EntityWithHealth
 {
 public:
-	HAS_ID("Bad----")
+	HAS_ID("BAD----");
 	RunnerShip(StateBall* stateBallPtr, double x, double y);
 	~RunnerShip();
 

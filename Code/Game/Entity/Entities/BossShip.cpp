@@ -23,6 +23,7 @@ BossShip::~BossShip()
 {
 	mDisplayPtr->removeSprite(mSprite);
 	free(mSprite);
+	GameState::gameWin();
 }
 
 void BossShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fellows)
@@ -252,7 +253,7 @@ void BossShip::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &f
 
 	mPhaseTimer.update(*this,dt);
 
-	if(mHealth < 0)
+	if(mHealth < 1)
 	{
 		GameState::gameWin();
 	}

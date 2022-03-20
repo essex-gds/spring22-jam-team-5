@@ -4,7 +4,7 @@ Player::Player(StateBall* stateBallPtr)
 	: EntityWithHealth    (Sprite::create(TILE_PLAYER,64,64,64,32))
 {
 
-	mHealth = 25;
+	setHealth(25);
 
 	mDisplayPtr = stateBallPtr->mDisplayPtr;
 	mDisplayPtr->addSprite(mSprite);
@@ -19,7 +19,7 @@ Player::Player(StateBall* stateBallPtr)
 		mBulletTimer.reset();
 	});
 
-	mPlayerHealth = new PlayerHeath(stateBallPtr, this) ;
+	mPlayerHealth = nullptr;
 }
 
 Player::~Player()
@@ -94,7 +94,10 @@ void Player::update(StateBall* stateBallPtr, float dt, std::vector<Entity*> &fel
 	mYVelocity *= 0.80;
 
 	mBulletTimer.update(*this, dt);
-
+	if(mPlayerHealth == nullptr)
+	{
+		mPlayerHealth = new PlayerHeath(stateBallPtr, this) ;
+	}
 	mPlayerHealth->update(stateBallPtr,dt,fellows);
 	Entity::update(stateBallPtr,dt, fellows);
 }

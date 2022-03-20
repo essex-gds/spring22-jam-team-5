@@ -18,7 +18,7 @@
 class BossShip : public EntityWithHealth
 {
 public:
-
+	HAS_ID("BAD----");
 	BossShip(StateBall* stateBallPtr, double x, double y);
 
 	~BossShip();
